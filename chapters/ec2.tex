@@ -24,7 +24,7 @@ We report the strategy simplex of player 1 partitioned in subareas with the corr
 \end{figure}
 \noindent
 \textbf{Exercise 7.0.3} (Complexity). \textit{What is the computational complexity of finding the Maxmin/Minmax strategy with 2–player normal–form games?}\\\\
-The Maxmin strategy and the corresponding Maxmin value of player $i$ against player $-i$ can be found in polynomial time in the size of the game, where the size is given by the number of actions of the players. Therefore the Maxmin finding problem is in FP class.\\\\
+The Maxmin strategy and the corresponding Maxmin value of player $i$ against player $-i$ can be found in polynomial time in the size of the game, where the size is given by the number of actions of the players. Therefore the Maxmin finding problem is in \textsf{FP} class.\\\\
 \textbf{Exercise 7.0.4} (Mathematical programming formulation). \textit{Given a 2–player normal–form game, provide the mathematical programming formulation for finding a Maxmin/Minmax strategy and show its derivation.}\\\\
 The Maxmin strategy and the corresponding value of player $ i $
 against player $ -i $ can be found by solving the following Linear Program (LP):
@@ -87,20 +87,24 @@ The Minmax strategy player $i$ against player $-i$ and the corresponding value o
 
 \textbf{Exercise 8.0.1} (Maxmin strategy definition). \textit{Provide the definition of Maxmin strategy in 2–player sequence– form games.}\\\\
 The Maxmin strategy of player i against player $-i$ in sequence form can be found by solving the following linear mathematical programming problem:
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{images/img_2_8_01.png}
-\end{figure}
+\begin{align*}
+\arg \max _{r_{i}, v_{i}}  & \sum_{h_{-i} \in H_{-i} \cup\left\{\mathrm{h}_{\varnothing}\right\}} f_{-i}\left(h_{-i}\right) v_{i}\left(h_{-i}\right)\\
+\text {s.t.} & \quad \sum_{h_{-i} \in H_{-i} \cup\left\{\mathrm{h}_{\varnothing}\right\}} F_{-i}\left(h_{-i}, q_{-i}\right) v_{i}\left(h_{-i}\right)-\sum_{q_{i} \in Q_{i}}\left[U_{i}\left(q_{i}, q_{-i}\right) r_{i}\left(q_{i}\right)\right] & \leqslant & \quad 0 & \forall q_{-i} \in Q_{-i}\\
+& \sum_{q_{i} \in Q_{i}} F_{i}\left(h_{i}, q_{i}\right) r_{i}\left(q_{i}\right) & = & \quad f_{i} \left(h_{i}\right) & \forall h_{i} \in H_{i} \cup\left\{\mathrm{h}_{\varnothing}\right\}\\
+& r_i (q_i) & \geqslant & \quad 0 & \forall q_i \in Q_i
+\end{align*}
 \noindent
 \textbf{Exercise 8.0.2} (Complexity). \textit{What is the computational complexity of finding the Maxmin/Minmax strategy with 2–player sequence–form games?}\\\\
 The Maxmin strategy and the corresponding Maxmin value of player $i$ against player $-i$ in an extensive-form game can be found, by means of the sequence-form representation, in polynomial time in the size of the game, where the size is given by the number of nodes
 of the game tree. Therefore the Maxmin finding problem is in \textsf{FP} class.\\\\
 \textbf{Exercise 8.0.3} (Mathematical programming formulation). \textit{Given a 2–player sequence–form game, provide the mathematical programming formulation for finding a Maxmin/Minmax strategy and show its derivation.}\\\\
 The Minmax strategy of player i against player $-i$ in sequence form can be found by solving the following linear mathematical programming problem:
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{images/img_2_8_02.png}
-\end{figure}
+\begin{align*}
+\arg \min _{r_{i}, v_{-i}}  & \sum_{h_{-i} \in H_{-i} \cup\left\{\mathrm{h}_{\varnothing}\right\}} f_{-i}\left(h_{-i}\right) v_{i}\left(h_{-i}\right)\\
+\text {s.t.} & \quad \sum_{h_{-i} \in H_{-i} \cup\left\{\mathrm{h}_{\varnothing}\right\}} F_{-i}\left(h_{-i}, q_{-i}\right) v_{i}\left(h_{-i}\right)-\sum_{q_{i} \in Q_{i}}\left[U_{-i}\left(q_{i}, q_{-i}\right) r_{i}\left(q_{i}\right)\right] & \leqslant & \quad 0 & \forall q_{-i} \in Q_{-i}\\
+& \sum_{q_{i} \in Q_{i}} F_{i}\left(h_{i}, q_{i}\right) r_{i}\left(q_{i}\right) & = & \quad f_{i} \left(h_{i}\right) & \forall h_{i} \in H_{i} \cup\left\{\mathrm{h}_{\varnothing}\right\}\\
+& r_i (q_i) & \geqslant & \quad 0 & \forall q_i \in Q_i
+\end{align*}
 \noindent
 \textbf{Exercise 8.0.4} (Solving a game). \textit{Given a sequence–form game with 2 players, find a Maxmin strategy by means of AMPL + GUROBI.}\\\\
 \textcolor{red}{TODO}\\\\
@@ -108,21 +112,28 @@ The Minmax strategy of player i against player $-i$ in sequence form can be foun
 \section{EC 2.9}
 
 \textbf{Exercise 9.0.1} (Team Maxmin strategy definition). \textit{Provide the definition of the Maxmin strategy when there are multiple max players and a single min player.}\\\\
-\textbf{Many-max player/single-min players.} Now, we focus on the case in which there are multiple max players and only one min player. Initially, we remark that this situation makes sense only when the utility functions of all the max players are the same, otherwise it would not be clear which objective function the max players should maximize. Therefore, in this case, the max players are forming a team and searching for the Maxmin strategy is equivalent to searching for a Team-Maxmin strategy. Also here, we can distinguish the case in which the team plays in correlated strategies from the case in which the team plays in mixed strategies. We initially focus on the first case.\\
-(Maxmin optimization problem (with correlated min players)). The problem of finding a Maxmin strategy of a team of $n-1$ players, playing in correlated fashion, against player i is formulated as:
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{images/img_2_9_01.png}
-\end{figure}
+\textbf{Many-max player/single-min players.} Now, we focus on the case in which there are multiple max players and only one min player. Initially, we remark that this situation makes sense only when the utility functions of all the max players are the same, otherwise it would not be clear which objective function the max players should maximize. Therefore, in this case, the max players are forming a team and searching for the Maxmin strategy is equivalent to searching for a Team-Maxmin strategy. Also here, we can distinguish the case in which the team plays in correlated strategies from the case in which the team plays in mixed strategies. We initially focus on the first case.\\\\
+(Maxmin optimization problem (with correlated min players)). The problem of finding a Maxmin strategy of a team of $n-1$ players, playing in correlated fashion, against player $i$ is formulated as:
+\begin{align*}
+\arg \max _{\bm{\sigma}_{-i}}  & \quad \min_{\sigma_{i}} & \sum_{\mathbf{a}_{-i} \in A_{-i}} \sum_{a_{i} \in A_{i}}\left[U_{-i}\left(a_{i}, \mathbf{a}_{-i}\right) \sigma_{i}\left(a_{i}\right) \bm{\sigma}_{-i}\left(\mathbf{a}_{-i}\right)\right] & &\\
+& \quad s.t. & \sum_{a_{i} \in A_{i}} \sigma_{i}\left(a_{i}\right) & =1\\
+& & \sigma_{i}\left(a_{i}\right) & \geqslant 0 & \forall a_{i} \in A_{i}\\
+s.t. & \sum_{\mathbf{a}_{-i} \in A_{-i}} \bm{\sigma}_{i}\left(\mathbf{a}_{-i}\right) & & =1\\
+& \bm{\sigma}_{i}\left(\mathbf{a}_{-i}\right) & & \geqslant 0 & \forall \mathbf{a}_{-i} \in A_{-i}\\
+\end{align*}
 \noindent
 (Maxmin optimization problem (with non-correlated min players)). The problem of finding a
-Maxmin strategy of a team of $n-1$ players, playing in mixed strategies, against player i is formulated as:
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{images/img_2_9_02.png}
-\end{figure}
+Maxmin strategy of a team of $n-1$ players, playing in mixed strategies, against player $i$ is formulated as:
+\begin{align*}
+\arg \max _{\bm{\sigma}_{-i}}  & \quad \min_{\sigma_{i}} & \sum_{a_{i} \in A_{i}} \sum_{\mathbf{a}_{-i} \in A_{-i}} \left[U_{-i}\left(a_{i}, \mathbf{a}_{-i}\right) \prod_{j \in N}{\sigma_j (a_j)} \right] & &\\
+& \quad s.t. & \sum_{a_{i} \in A_{i}} \sigma_{i}\left(a_{i}\right) & =1\\
+& & \sigma_{i}\left(a_{i}\right) & \geqslant 0 & \forall a_{i} \in A_{i}\\
+s.t. & \sum_{a_{j} \in A_{j}} \sigma_{i}\left(a_{j}\right) & & =1 & \forall j \in N \setminus \{i\} \\
+& \sigma_{j}\left(a_{j}\right) & & \geqslant 0 & \forall j \in N \setminus \{i\}, \forall a_{j} \in A_{j}\\
+\end{align*}
 \noindent
 \textbf{Exercise 9.0.2} (Complexity). \textit{What is the computational complexity of finding the Maxmin strategy with n–max players and 1 min player in normal–form games (equivalently finding a Minmax strategy with n–min player and 1 max player)?}\\\\
+The Maxmin strategy and the corresponding Maxmin value of $n$ min-players against 1 max-player can be found in polynomial time in the size of the game, where the size is given by the number of actions of the players. Therefore the Maxmin finding problem is in \textsf{FP} class.\\\\
 \textbf{Exercise 9.0.3} (Mathematical programming formulation). \textit{Given an n–player normal–form game, provide the mathematical programming formulation for finding a Maxmin strategy and show its derivation when there are $ n-1 $ max players and $ 1 $ min players.}\\\\
 (Maxmin strategy formulation (with correlated min players)). The Maxmin strategy and the corresponding value of a team of $n-1$ players, playing in correlated fashion, against player i can be found by solving the following Linear Program:
 \begin{figure}[H]
@@ -160,6 +171,7 @@ linear and therefore strong duality cannot be applied.
 \section{EC 2.10}
 
 \textbf{Exercise 10.0.1} (Sperner’s labeling). \textit{Provide the definition of Sperner’s labeling.}\\\\
+(Simplicial subdivision). A simplicial subdivision of an n-dimensional simplex $\Delta^n$ is a finite set of subsimplices $\mathcal{D} = \{\Delta_i^n\}$ for which $\bigcup_{\Delta_i^n \in \mathcal{D}}{\Delta_i^n} = \Delta^n$, and for any $\Delta_i^n, \Delta_j^n \in \mathcal{D}$ the set $\Delta_i^n \cap \Delta_j^n$ is either empty or equal to a common facet.\\
 (Sperner’s labeling). Given a n-dimensional simplex and a simplicial subdivion $ \mathcal{D} $, a Sperner’s labeling is a labeling of the vertices V of the subsimplices with labels $L = \{ 0, 1, \ldots, n \}$ is a function $l : V \rightarrow L$
 satisfying the following conditions:
 \begin{itemize}
@@ -173,14 +185,13 @@ An example of Sperner’s labeling of the above simplex $\Delta^2$ is as follows
 \includegraphics[width=\textwidth]{images/img_2_10_01.png}
 \end{figure}
 \noindent
-\textbf{Exercise 10.0.2} (Panchromatic and quasi–panchromatic subsimplex). \textit{Provide the definitions of panchromatic
-and quasi–panchromatic n–dimension subsimplex.}\\\\
+\textbf{Exercise 10.0.2} (Panchromatic and quasi–panchromatic subsimplex). \textit{Provide the definitions of panchromatic and quasi–panchromatic n–dimension subsimplex.}\\\\
 (Panchromatic (completely labeled) subsimplex). A subsimplex is called completely labeled or panchromatic if each vertex has a label different from the one of all the other vertices of the subsimplex. Therefore, a panchromatic n-dimensional subsimplex has $n+1$ different labels.\\\\
-(Quasi-panchromatic (almost completely labeled) subsimplex). An n-dimensional subsimplex is called almost completely labeled or quasi panchromatic if each vertex has a label different from the one of all the other vertices of the subsimplex except one. Therefore, a panchromatic n-dimensional subsimplex has n different labels among which one label is present twice.\\\\
+(Quasi-panchromatic (almost completely labeled) subsimplex). An n dimensional subsimplex is called almost completely labeled or quasi panchromatic if each vertex has a label different from the one of all the other vertices of the subsimplex except one. Therefore, a panchromatic n-dimensional subsimplex has n different labels among which one label is present twice.\\\\
 \textbf{Exercise 10.0.3} (Sperner’s Lemma). \textit{Provide the statement of the Sperner’s Lemma.}\\\\
-(Sperner’s Lemma). Given a n-dimensional simplex, a simplicial subdivion $ \mathcal{D} $, and a Sperner’s labeling l, there exists an odd number of panchromatic n-dimensional subsimplices. Therefore, there exists at least one panchromatic subsimplex.\\\\
+(Sperner’s Lemma). Given a n-dimensional simplex, a simplicial subdivion $ \mathcal{D} $, and a Sperner’s labeling $l$, there exists an odd number of panchromatic n-dimensional subsimplices. Therefore, there exists at least one panchromatic subsimplex.\\\\
 \textbf{Exercise 10.0.4} (Sperner’s walk). \textit{Provide the definition of Spener’s walk and its characterization.}\\\\
-(Sperner’s walk). Given a n-dimensional simplex $\Delta^n$, a simplicial subdivion $ \mathcal{D} $, and a Sperner’s labeling l, a Sperner’s walk is a sequence of adjacent subsimplices such that each common facet traversed to move from a subsimplex to the adjacent subsimplex has the same n different labels, that is $L \setminus \{s\}$ for some $s \in L$.
+(Sperner’s walk). Given a n-dimensional simplex $\Delta^n$, a simplicial subdivion $ \mathcal{D} $, and a Sperner’s labeling $l$, a Sperner’s walk is a sequence of adjacent subsimplices such that each common facet traversed to move from a subsimplex to the adjacent subsimplex has the same n different labels, that is $L \setminus \{s\}$ for some $s \in L$.
 Therefore, each subsimplex of the walk is either quasi panchromatic or panchromatic.\\\\
 (Sperner’s walk characterization). There are four main classes of Sperner’s walks:
 \begin{itemize}
@@ -191,7 +202,7 @@ Therefore, each subsimplex of the walk is either quasi panchromatic or panchroma
 \end{itemize}
 Except walks strictly contained in the walks of the above four classes, no other Sperner’s walks are possible.\\\\
 \textbf{Exercise 10.0.5} (Scarf’s algorithm). \textit{Describe the Scarf’s algorithm and its properties.}\\\\
-(Scarf's algorithm). We describe the algorithm for the 2-dimensional case. Given a 2-dimensional simplex $\Delta^{2}$ and a simplicial subdivion $\mathcal{D},$ we embed $\Delta^{2}$ in a larger simplex $\bar{\Delta}^{2}$ as follows. Each vertex $v$ of $\bar{\Delta}^{2}$ is assigned a different label and it is connected to all the vertices of the subsimplices of $\Delta^{2}$ of a given facet such that one of the two labels appearing in the facet is the label of $v$. Two different vertices $v, v^{\prime}$ of $\bar{\Delta}^{2}$ are connected to the vertices of different facets of $\bar{\Delta}^{2}$ except for the vertices of the simplex Delta $^{2}$ that belong to different facets. Furthermore, the three vertices of $\bar{\Delta}^{2}$ are connected each other. Thus, there is a fictitious simplex composed of the whole space outer than $\bar{\Delta}^{2}$ that is panchromatic. This simplex is the starting point of the Scarf's algorithm.\\
+(Scarf's algorithm). We describe the algorithm for the 2-dimensional case. Given a 2-dimensional simplex $\Delta^{2}$ and a simplicial subdivion $\mathcal{D},$ we embed $\Delta^{2}$ in a larger simplex $\bar{\Delta}^{2}$ as follows. Each vertex $v$ of $\bar{\Delta}^{2}$ is assigned a different label and it is connected to all the vertices of the subsimplices of $\Delta^{2}$ of a given facet such that one of the two labels appearing in the facet is the label of $v$. Two different vertices $v, v^{\prime}$ of $\bar{\Delta}^{2}$ are connected to the vertices of different facets of $\bar{\Delta}^{2}$ except for the vertices of the simplex $\Delta^{2}$ that belong to different facets. Furthermore, the three vertices of $\bar{\Delta}^{2}$ are connected with each other. Thus, there is a fictitious simplex composed of the whole space outer than $\bar{\Delta}^{2}$ that is panchromatic. This simplex is the starting point of the Scarf's algorithm.\\
 The algorithm follows a Sperner's walk leaving this simplex (notice that three different paths can follow). Each path will end in a panchromatic subsimplex.\\
 We report below the construction needed for the application of the Scarf’s algorithm and a path generated by an execution of the algorithm, specifically when the first traversed segment has colors blue and green.
 \begin{figure}[H]
@@ -276,9 +287,11 @@ $M_{i} .$ In other words, the adoption of a binary $b_{i}\left(a_{i}\right)$ all
 \textbf{Exercise 13.0.1} (Lemke–Howson’s labeling). \textit{Provide the definition of the Lemke–Howson’s labeling.}\\\\
 The Lemke-Howson algorithm is a path-following algorithm working in 2-player normal-form games, returning an exact Nash equilibrium. Differently from the Scarf’s algorithm, the Lemke-Howson does not discretize the simplex space. Nevertheless, the Lemke-Howson algorithm is a combinatorial algorithm moving over a finite set
 of points. Initially, we introduce the set of labels.\\\\
+(Labels). The set of labels $L$ is defined as $L = \bigcup_{i \in N}{A_i}$. That is, we have one label for each action of each player.\\
+(Solution labeling). A solution labeling $l$ is a function $l: \times_{i \in N} \Delta (A_i) \rightarrow \wp (L)$.
 (Lemke-Howson's labeling). The Lemke-Howson's labeling $l$ is defined as follows:
 $$
-a_{i} \in l(\sigma) \Longleftrightarrow\left(\left(\sigma_{i}\left(a_{i}\right)=0\right) \vee\left(v_{i}=\sum_{a_{-i} \in A_{-i}} U_{i}\left(a_{i}, a_{-i}\right) \sigma_{-i}\left(a_{-i}\right)\right)\right)
+a_{i} \in l(\bm{\sigma}) \Longleftrightarrow\left(\left(\sigma_{i}\left(a_{i}\right)=0\right) \vee\left(v_{i}=\sum_{a_{-i} \in A_{-i}} U_{i}\left(a_{i}, a_{-i}\right) \sigma_{-i}\left(a_{-i}\right)\right)\right)
 $$
 \textbf{Exercise 13.0.2} (Lemke–Howson’s algorithm definition). \textit{Provide the sketch of the Lemke–Howson’s algorithm.}\\\\
 (Lemke-Howson (rationale)). The algorithm is structured as follows.
@@ -286,7 +299,7 @@ $$
 \item Partition the simplex of player $i$ in terms of best response of player $-i$. Each strategy profile $\mathbf{\sigma}$ corresponds
 to a pair of points, one in the simplex of player 1 and one in the simplex of player 2. Each strategy profile $\mathbf{\sigma}$ is associated with a number of labels according to the Lemke-Howson labeling.
 \item Focus on the nodes obtained by the intersections between the best response conditions and simplex border. Each node has three different labels (in degenerate games the labels may be more than three). The algorithm moves only between nodes.
-\item Focus on completely labeled solutions and almost completely labeled solutions. An almost completely labeled solution $\mathbf{\sigma}$ presents a label, say a, twice. One is given in the simplex of player 1, while the other is given by the simplex of player 2. Therefore, given an almost completely labeled solution $\mathbf{\sigma}$, there are two ways to remove the label that appears twice: moving in the simplex of player 1 and moving in the
+\item Focus on completely labeled solutions and almost completely labeled solutions. An almost completely labeled solution $\mathbf{\sigma}$ presents a label, say \textsf{a}, twice. One is given in the simplex of player 1, while the other is given by the simplex of player 2. Therefore, given an almost completely labeled solution $\mathbf{\sigma}$, there are two ways to remove the label that appears twice: moving in the simplex of player 1 and moving in the
 simplex of player 2. This means that moving along almost completely labeled solutions the algorithm moves along paths. These paths can be either cycles or non-cycles in which the starting solution and
 the ending solution are completely labeled solutions.
 \item Start from an artificial completely labeled solution: $\sigma_i (a_i) = 0$ for every $i \in N$ and for every $a_i \in A_i$.
