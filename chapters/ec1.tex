@@ -1,7 +1,7 @@
 \section{EC 1.1}
 
 \textbf{Exercise 1.0.1} (Information set). \textit{What is an information set?}\\\\
-An information set h of player i is a subset of $ V_{i} $ such that, for all $w, w^{\prime} \in h$ the property $ \rho(w) = \rho(w^{\prime}) $ holds (with an abuse of notation, we denote $ \rho(h)$ as $\rho(w) $ with $w \in h $).\\\\
+An information set $h$ of player $i$ is a subset of $ V_{i} $ such that, for all $w, w^{\prime} \in h$ the property $ \rho(w) = \rho(w^{\prime}) $ holds (with an abuse of notation, we denote $ \rho(h)$ as $\rho(w) $ with $w \in h $).\\\\
 \textbf{Exercise 1.0.2} (Perfect vs. imperfect information). \textit{Report an example of 2-player game in extensive-form
 representation with perfect information and an example of 2-player game with imperfect information.}
 \begin{figure}[H]
@@ -17,11 +17,11 @@ representation with perfect information and an example of 2-player game with imp
 \noindent
 \textbf{Exercise 1.0.3} (Perfect recall). \textit{Report the definition of perfect-recall games in terms of constraints over the
 information sets of the players.}\\\\
-Player i has perfect recall in an imperfect-information extensive-form game if for any two decision nodes $ w, w^{\prime} $ that are in the same information set h for player i, for any path $ \langle w_{0}, a_{0}, w_{1}, a_{1}, w_{2}, \ldots, w_{k}, a_{k}, w \rangle $ from the root $\bar{w}_{0}$ of the game to $w$ (where $w_{j}$ are decision nodes of player i and $a_{j}$ are actions played at $w_{j}$ by player i) and for any path $ \langle w_{0}^{\prime}, a_{0}^{\prime}, w_{1}^{\prime}, a_{1}^{\prime}, w_{2}^{\prime}, \ldots, w_{l}^{\prime}, a_{l}^{\prime}, w^{\prime} \rangle $ from the root of
+Player $i$ has perfect recall in an imperfect-information extensive-form game if for any two decision nodes $ w, w^{\prime} $ that are in the same information set $h$ for player $i$, for any path $ \langle w_{0}, a_{0}, w_{1}, a_{1}, w_{2}, \ldots, w_{k}, a_{k}, w \rangle $ from the root $\bar{w}_{0}$ of the game to $w$ (where $w_{j}$ are decision nodes of player $i$ and $a_{j}$ are actions played at $w_{j}$ by player $i$) and for any path $ \langle w_{0}^{\prime}, a_{0}^{\prime}, w_{1}^{\prime}, a_{1}^{\prime}, w_{2}^{\prime}, \ldots, w_{l}^{\prime}, a_{l}^{\prime}, w^{\prime} \rangle $ from the root of
 the game to $ w^{\prime} $ it must be the case that:
 \begin{itemize}
 \item $ k = l $;
-\item for all $ 0 \leqslant j \leqslant k, w_{j} $ and $ w_{j}^{\prime} $ are in the same information set for player $ i $;
+\item for all $ 0 \leqslant j \leqslant k, w_{j} $ and $ w_{j}^{\prime} $ are in the same information set for player $i$;
 \item for all $ 0 \leqslant j \leqslant k $, it holds $ a_{j}=a_{j}^{\prime} $;
 \end{itemize}
 A game is with perfect recall if every player has perfect recall in it.\\\\
@@ -39,6 +39,12 @@ with perfect recall and an example of 2-player game with imperfect recall.}
 \end{figure}
 \noindent
 \textbf{Exercise 1.0.5} (Timeability). \textit{Report the definition of timeable extensive-form game.}\\\\
+Given an extensive-form game, the information sets are chronologically ordered when there is an assignment of labels $l \in \mathbb{N}$ to the decision nodes such that:
+\begin{itemize}
+\item each decision node has a label strictly larger than the label of the parent;
+\item all the decision nodes of the same information set have the same label.
+\end{itemize}
+The labels have a simple interpretation, being the time at which the information set is traversed.\\
 A game is timeable, in the sense that all the players have the sense of time, if and only if all the information sets are chronologically ordered.\\\\
 \textbf{Exercise 1.0.6} (Timeable vs. non-timeable). \textit{Report an example of 3-player game in extensive-form representation
 with perfect recall in which some player has not the sense of time.}
@@ -138,11 +144,10 @@ Given an extensive-form game $(N, A, V, T, \iota, \rho, \chi,U,H)$, the correspo
 \item $U' = \{U_1,U_2, \ldots ,U_n\}$ is the set of utility functions of the players with $U_i' : P_1 \times  P_2 \times \ldots  P_n \rightarrow \mathbb{R}$ such that $U_i'(p_1, p_2, \ldots, p_n) = U_i(w)$ where $w$ is the terminal node reached by applying plan profile $(p_1, p_2, \ldots, p_n)$.
 \end{itemize}
 \textbf{Exercise 2.0.2} (Normal-form size). \textit{Given an extensive-form game with 2 players, h information sets per player and 2 actions available to each player at each information set, what is, in the worst case, the asymptotical size of the normal-form representation in h?}\\\\
-The normal-form representation of a dynamic game may have a size that is exponentially large w.r.t. the size of the game tree. The size of the normal-form representation, in terms of number of outcomes, is $ 2^h $ (\textcolor{red}{?}).\\\\
-\textbf{Exercise 2.0.3} (Strategy and strategy profile). \textit{Provide the definition of strategy and strategy profile for a game
-in normal-form representation.}\\\\
-Strategy $ \sigma_{i}: A_{i} \rightarrow [0,1] $ with $ \sigma_{i} \in \Delta (A_{i}) $ is a function returning the probability with which each action $ a_{i} \in A_{i} $ is played by player i (we denote with $ \Delta(\cdot) $ the simplex over $ \cdot $ ).\\
-Strategy profile $ \sigma $ is a tuple $ (\sigma_{1}, \sigma_{2}, \ldots, \sigma_{n}) $, containing one strategy per player. Strategy profile $ \sigma_{-i} $ is a tuple $ (\sigma_{1}, \sigma_{2}, \ldots, \sigma_{i-1}, \sigma_{i+1}, \ldots, \sigma_{n} ) $, containing one strategy per player except for player i.\\\\
+The normal-form representation of an extensive-form game may have exponential size in the size of the game tree, where the size of the normal-form representation is $|P_1| |P_2| \ldots |P_n|$ and the size of the game tree is $|T|$. The size of the normal-form representation, in terms of $h$, is $|P_1||P_2| = 2^h \cdot 2^h = 2^{2h}$.\\\\
+\textbf{Exercise 2.0.3} (Strategy and strategy profile). \textit{Provide the definition of strategy and strategy profile for a game in normal-form representation.}\\\\
+A normal-form strategy $ \sigma_{i}: P_{i} \rightarrow [0,1] $ with $ \sigma_{i} \in \Delta (P_{i}) $ is a function returning the probability with which each plan $ p_{i} \in P_{i} $ is played by player i (we denote with $ \Delta(\cdot) $ the simplex over $ \cdot $ ).\\
+Strategy profile $ \bm{\sigma} $ is a tuple $ (\sigma_{1}, \sigma_{2}, \ldots, \sigma_{n}) $, containing one strategy per player. Strategy profile $ \bm{\sigma}_{-i} $ is a tuple $ (\sigma_{1}, \sigma_{2}, \ldots, \sigma_{i-1}, \sigma_{i+1}, \ldots, \sigma_{n} ) $, containing one strategy per player except for player $i$.\\\\
 \textbf{Exercise 2.0.4} (Reduced normal-form representation of an extensive-form game). \textit{Provide the definition of
 the reduced normal-form representation of an extensive-form game.}\\\\
 Given the normal-form representation with plans $ P_{1}, P_{2}, \ldots, P_{n} $ of an extensive-form game, the reduced normal-form representation is composed of a subset of plans $ P_{1}^{\prime}, P_{2}^{\prime}, \ldots, P_{n}^{\prime} $ with $ P_{i}^{\prime} \subseteq P_{i} $ such that:
@@ -153,6 +158,7 @@ Given the normal-form representation with plans $ P_{1}, P_{2}, \ldots, P_{n} $ 
 \textbf{Exercise 2.0.5} (Reduced normal-form size). \textit{Given an extensive-form game with 2 players, h information
 sets per player and 2 actions available to each player at each information set, what is, in the worst case, the
 asymptotical size of the reduced normal-form representation in h?}\\\\
+The reduced normal-form representation of an extensive-form game may have exponential size in the size of the game tree, where the size of the normal-form representation is $|P'_1| |P'_2| \ldots |P'_n|$ and the size of the game tree is $|T|$. The size of the normal-form representation, in terms of $h$, is $|P'_1||P'_2| = 2^h \cdot 2^h = 2^{2h}$.\\\\
 \textbf{Exercise 2.0.6} (Translation). \textit{Given an extensive-form game (even with Nature), provide the corresponding normal-form representation and the corresponding reduced normal-form representation.}
 \begin{figure}[H]
 \begin{subfigure}[t]{0.3\textwidth}
@@ -171,9 +177,9 @@ asymptotical size of the reduced normal-form representation in h?}\\\\
 \noindent
 \textbf{Exercise 2.0.7} (Expected utility). \textit{Given a game in normal-form with n players, provide the formula of the
 expected utility for a player i.}\\\\
-Expected utility $ \mathbb{E}_{\mathbf{a} \sim \sigma} [U_{i(\mathbf{a})}] $ returns the expected value of the utility of player i given strategy profile $ \sigma $. The formula $ \mathbb{E}_{\mathbf{a} \sim \sigma} [U_{i}(\mathbf{a})] $ can be written as:
+Expected utility $ \mathbb{E}_{\mathbf{a} \sim \bm{\sigma}} [U_{i(\mathbf{a})}] $ returns the expected value of the utility of player $i$ given strategy profile $ \bm{\sigma} $. The formula $ \mathbb{E}_{\mathbf{a} \sim \bm{\sigma}} [U_{i}(\mathbf{a})] $ can be written as:
 $$
-\mathbb{E}_{\mathbf{a} \sim \sigma} [U_{i}(\mathbf{a})] = 
+\mathbb{E}_{\mathbf{a} \sim \bm{\sigma}} [U_{i}(\mathbf{a})] = 
 \sum_{a_{1} \in A_{1}} \sum_{a_{2} \in A_{2}} \ldots \sum_{a_{n} \in A_{n}}
 \sigma_{1}(a_{1}) \sigma_{2}(a_{2}) \ldots \sigma_{n}(a_{n})
 U_{i}(a_{1}, a_{2}, \ldots, a_{n})
@@ -190,12 +196,12 @@ Given an extensive-form game $(N, A, V, T, \iota, \rho, \chi, U, H)$,  the corre
 \item $ C=\left\{\left(F_{1}, f_{1}\right),\left(F_{2}, f_{2}\right), \ldots,\left(F_{n}, f_{n}\right)\right\}$ is the set of the constraints over the sequence-form strategies of all the players.\\\\
 \end{itemize}
 \textbf{Exercise 4.0.2} (Sequence-form size). \textit{Given an extensive-form game with 2 players, h information sets per player and 2 actions available to each player at each information set, what is, in the worst case, the asymptotical size of the sequence-form representation in h?}\\\\
-\textcolor{red}{TODO}\\\\
+The sequence-form representation has a size linear in the size of the game tree, containing a number of sequences that is $O(|V|)$. The size of the normal-form representation, in terms of $h$, is $O(2h)$.\\\\
 \textbf{Exercise 4.0.3} (Strategy and strategy profile). \textit{Provide the definition of strategy and strategy profile for a game in sequence-form representation.}\\\\
-A sequence-form strategy (said realization plan) $ r_i: Q_i \rightarrow [0,1] $, with the constraints that $ r_{i}(q_\varnothing) = 1 $ and that $ r_{i}(q) = \sum_{a \in \rho(h)} \mathsf{extend} (q,a) $ for each $ h \in \mathsf{lead}(q) $ and for every $ q \in Q_{i} $ that is not terminal, is a function returning the probability with which each sequence $ q \in Q_{i} $ is played by player i.\\\\
-Strategy profile $\mathbf{r}$ is a tuple $\left(r_{1}, r_{2}, \ldots, r_{n}\right),$ containing one strategy per player. Strategy profile $\mathbf{r}_{-i}$ is a tuple $\left(r_{1}, r_{2}, \ldots, r_{i-1}, r_{i+1}, \ldots, r_{n}\right),$ containing one strategy per player except for player i.
-Differently from strategies in the normal-form representation, in the sequence-form representation, strategies may not satisfy the condition that $\sum_{g \in Q_{t}} r_{i}(q)=1$ (that is, a realization plan may be not a probability distribution). Indeed, the sequence-form representation requires different constraints.\\\\
+A sequence-form strategy (said realization plan) $ r_i: Q_i \rightarrow [0,1] $, with the constraints that $ r_{i}(q_\varnothing) = 1 $ and that $ r_{i}(q) = \sum_{a \in \rho(h)} \mathsf{extend} (q,a) $ for each $ h \in \mathsf{lead}(q) $ and for every $ q \in Q_{i} $ that is not terminal, is a function returning the probability with which each sequence $ q \in Q_{i} $ is played by player $i$.\\
+Differently from strategies in the normal-form representation, in the sequence-form representation, strategies may not satisfy the condition that $\sum_{g \in Q_{t}} r_{i}(q)=1$ (that is, a realization plan may be not a probability distribution). Indeed, the sequence-form representation requires different constraints.\\
 The constraints over the strategies are linear in the strategies and, by using matrix-based notation, such constraints can be formulated as $F_{i} r_{i}=f_{i},$ where $F_{i}$ is a matrix $\mathcal{M}$ with size $\left(\left|H_{i}\right|+1\right) \times\left|Q_{i}\right|, r_{i}$ is here intended as a column vector, and $f_{i}$ is a column vector of $\left|H_{i}\right|+1$ positions.\\\\
+Strategy profile $\mathbf{r}$ is a tuple $\left(r_{1}, r_{2}, \ldots, r_{n}\right),$ containing one strategy per player. Strategy profile $\mathbf{r}_{-i}$ is a tuple $\left(r_{1}, r_{2}, \ldots, r_{i-1}, r_{i+1}, \ldots, r_{n}\right),$ containing one strategy per player except for player $i$.\\\\
 \textbf{Exercise 4.0.4} (Translation). \textit{Given an extensive-form game (even with Nature), provide the corresponding sequence-form representation.}\\\\
 (Sequence-form representation with Nature). An example of extensive-form game with Nature and its sequence-form representation is reported below (we use symbol `$ \times $' to denote the cases in which the utility
 functions are not defined).
@@ -226,7 +232,6 @@ distribution over the outcomes of the game.\\\\
 (Sequence/normal-form strategies realization equivalence). Given a game and a player $i$, a sequence-form strategy $r_i$ and a normal-form strategy $\sigma_i$ are realization equivalent if and only if the following property holds for every $q \in Q_i$:
 $$ r_{i}(q) = \sum_{p \in P_i:\mathsf{action}(q) \in p} \sigma_{i}(p) $$
 The above relation provides a direct way to find a sequence-form strategy given a normal-form strategy. The reverse is more involved, since every sequence-form strategy may be realization equivalent to many normal-form strategies and therefore it is necessary the resolution of a linear equation system.\\\\
-(Sequence/reduced-normal-form strategies realization equivalence). Every pure sequence-form strategy corresponds to a single plan in the reduced normal form.\\\\
 (Normal-form strategy derivation from a sequence-form strategy). Given a game and a sequence-form strategy $r_{i}$, the reduced normal-form strategy $\sigma_{i}$ defined as
 $$
 \sigma_{i}(p)=\prod_{q \in \bar{Q}_{i}: \textsf{action}(q) \in p} r_{i}(q)
@@ -263,7 +268,7 @@ r_{2}=\left[\begin{array}{c}
 0.75
 \end{array}\right]
 $$
-In the realization-equivalent strategy $\sigma_{2},$ we have, e.g., plan $p=\mathsf{l}_{1}\mathsf{l}_{2}\mathsf{l}_{3}$ played with probability $\sigma_{2}\left(\mathsf{l}_{1}\mathsf{l}_{2}\mathsf{l}_{3}\right)=0.50 \cdot 0.30 \cdot 0.25$\\\\
+In the realization-equivalent strategy $\sigma_{2},$ we have, e.g., plan $p=\mathsf{l}_{1}\mathsf{l}_{2}\mathsf{l}_{3}$ played with probability $\sigma_{2}\left(\mathsf{l}_{1}\mathsf{l}_{2}\mathsf{l}_{3}\right)=0.50 \cdot 0.30 \cdot 0.25$. This derivation does not work for the non-reduced normal form and is not unique.\\\\
 \textbf{Exercise 6.0.3} (From normal-form to sequence-form). \textit{Given an extensive-form game, its normal-form and sequence-form representations, and a strategy profile defined over the normal-form, provide a strategy defined over the sequence-form that is realization equivalent. Is the latter unique?}\\\\
 (Sequence/normal-form strategies realization equivalence). Consider the example above. Strategies $r_2$ and $\sigma_2$ are realization equivalent if the following equations are satisfied:
 $$
@@ -276,7 +281,7 @@ $$
 &r_{2}\left(\mathrm{r}_{3}\right) & = \ & \sigma_{2}\left(\mathrm{l}_{1} \mathrm{l}_{2} \mathrm{r}_{3}\right) & + \ &  \sigma_{2}\left(\mathrm{l}_{1} \mathrm{r}_{2} \mathrm{r}_{3}\right) & + \ &  \sigma_{2}\left(\mathrm{r}_{1} \mathrm{r}_{2} \mathrm{r}_{3}\right) & + \ &  \sigma_{2}\left(\mathrm{r}_{1}\mathrm{l}_{2} \mathrm{r}_{3}\right)
 \end{aligned}
 $$
-Notice that $ r_{2}(q) = \frac{1}{2} $ for every $q$ is realization equivalent to $ \sigma_{2}(p) = \frac{1}{8} $ for every $p$, but it is realization equivalent also to $ \sigma_{2}(l_{1} l_{2} l_{3}) = \sigma_{2}(r_{1} r_{2} r_{3}) = \frac{1}{2} $ and $ \sigma_{2}(p) = 0 $ for all the other $p$.\\\\
+Notice that $ r_{2}(q) = \frac{1}{2} $ for every $q$ is realization equivalent to $ \sigma_{2}(p) = \frac{1}{8} $ for every $p$, but it is realization equivalent also to $ \sigma_{2}(l_{1} l_{2} l_{3}) = \sigma_{2}(r_{1} r_{2} r_{3}) = \frac{1}{2} $ and $ \sigma_{2}(p) = 0 $ for all the other $p$. The derivation is unique.\\\\
 \textbf{Exercise 6.0.4} (Sequence-form and reduced normal-form). \textit{What is the relation between sequence-form representation and reduced normal-form representation?}\\\\
 (Sequence/reduced-normal-form strategies realization equivalence). Every pure sequence-form strategy corresponds to a single plan in the reduced normal form.\\\\
 The observation above shows that the number of pure realization plans is exponentially large in the size of the game tree, the number of plans of the reduced normal-form being exponentially large. When using the reduced normal-form representation, we have a direct way to derive a strategy that is realization equivalent to a given realization plan.\\\\
