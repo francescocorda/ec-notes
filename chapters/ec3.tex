@@ -29,7 +29,8 @@ Thus, the study of the conditions under which the market clears is crucial. This
 \textbf{Exercise 14.0.3} (Arrow-Debreu equilibrium). \textit{Provide the definition of the Arrow-Debreu equilibrium and argue the meaning of the result.}\\
 
 There is always a price vector $p^{*}$ such that $\sum_{i \in N} x_{i}^{*} \leqslant e$ and $p^{*}$ is Pareto efficient for the players.\\
-The problem of finding an Arrow-Debreu equilibrium is slightly different from the problem of finding a Nash equilibrium. On the one hand, each player behaves rationally, maximizing her utility function, asin a Nash equilibrium. In particular, the problem reduces to the problem of finding a Nash equilibrium when prices are fixed. On the other hand, prices are part of the problem. Thus the problem of finding an Arrow-Debreu equilibrium can be formulated as the problem of finding prices satisfying some conditions under the equilibrium constraints of the players.Interestingly, the problem of finding an Arrow-Debreu equilibrium presents the same computational properties of the problem of finding the Nash equilibrium, as stated below.
+The problem of finding an Arrow-Debreu equilibrium is slightly different from the problem of finding a Nash equilibrium. On the one hand, each player behaves rationally, maximizing her utility function, as in a Nash equilibrium. In particular, the problem reduces to the problem of finding a Nash equilibrium when prices are fixed. On the other hand, prices are part of the problem. Thus the problem of finding an Arrow-Debreu equilibrium can be formulated as the problem of finding prices satisfying some conditions under the equilibrium constraints of the players. Interestingly, the problem of finding an Arrow-Debreu equilibrium presents the same computational properties of the problem of finding the Nash equilibrium, as stated below.\\
+(Arrow-Debreu equilibrium complexity). The problem of finding a Arrow-Debreu market equilibrium is \textsf{PPAD}-complete even when all traders use additively separate, piecewise-linear and concave utility functions.
 
 \section{EC 3.15}
 \textbf{Exercise 15.0.1} (Leader-Follower equilibrium definition). \textit{Provide the definition of the Leader-Follower equilibrium with 2 players.}\\
@@ -42,41 +43,189 @@ The problem of finding a Leader–Follower equilibrium is formulated as:
 
 \textbf{Exercise 15.0.2} (Leader-Follower equilibrium properties). \textit{Describe the properties of the Leader-Follower equilibrium with 2 players.}\\
 
+A Stackelberg equilibrium always exist when ties are broken in favour of the leader.\\
+A Stackelberg equilibrium may not exist when ties are not broken in favour of the leader.\\
+With 2 players (one leader and one follower), committing to a strategy never hurts the leader when ties are broken in its favour.\\
+Equivalently, under those conditions, the best Nash for the leader is never strictly better than the Stackelberg equilibrium for the leader.\\
+
 \textbf{Exercise 15.0.3} (Leader-Follower equilibrium example). \textit{Given a 2-player normal-form game with 2 actions per player, find a Leader-Follower equilibrium.}\\
+
+Consider the following 2-player game with 2 actions per player:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{images/img_3_15_02.png}
+\end{figure}
+Under the constraint that the follower plays $\mathsf{a_3}$, the best strategy of the leader and the corresponding value is:
+\[
+s_{l}=\begin{cases}
+\frac{2}{3} & \mathsf{a_1} \\
+\frac{1}{3} & \mathsf{a_2}
+\end{cases} \quad \quad v_{l}=\frac{13}{3}
+\]
+while under the constraint that the follower plays $\mathsf{a_4}$, the best strategy of the leader and the corresponding value is:
+\[
+s_{l}=\begin{cases}
+\frac{2}{3} & \mathsf{a_1} \\
+\frac{1}{3} & \mathsf{a_2}
+\end{cases} \quad \quad v_{l}=\frac{8}{3}
+\]
+Under the assumption that the follower breaks ties in favor of the leader, the equilibrium is:
+\[
+s_{l}=
+\begin{cases}
+\frac{2}{3} & \mathsf{a_1} \\
+\frac{1}{3} & \mathsf{a_2}
+\end{cases} \quad \quad
+s_{f}=
+\begin{cases}
+1 & \mathsf{a_1} \\
+0 & \mathsf{a_2}
+\end{cases}
+\]
+We show that no equilibrium exists if the follower breaks ties in a different way. For any fully mixed $s_f$ played when $s_l = (\frac{2}{3}, \frac{1}{3})$, the utility function of the leader has a superior at $s_l = (\frac{2}{3}, \frac{1}{3})$ but the maximum does not exist. Indeed, the best strategy of the leader is $s_l = (\frac{2}{3} + \epsilon, \frac{1}{3}) + \epsilon$ with $\epsilon \rightarrow 0$, but $\epsilon$ cannot be $0$. In other words, the limit does not exist. The expected utility of the leader is depicted in the figure below.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/img_3_15_03.png}
+\end{figure}
 
 \textbf{Exercise 15.0.4} (Leader-Follower equilibrium formulation). \textit{Provide the mathematical programming formulation to find a Leader-Follower equilibrium with 2 players.}\\
 
-\textbf{Exercise 15.0.5} (Finding a Leader-Follower equilibrium). \textit{Given a 2-player normal-form game, find a Leader-Follower equilibrium by means of AMPL+GUROBI.}\\
+The Leader–Follower equilibrium can be found by solving the following mathematical programming problem:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/img_3_15_04.png}
+\end{figure}
+whose nature is Multi–Linear Program (Multi–LP).\\
+
+\textbf{Exercise 15.0.5} (Finding a Leader-Follower equilibrium). \textit{Given a 2-player normal-form game, find a Leader-Follower equilibrium by means of AMPL + GUROBI.}\\
+
+\textcolor{red}{TODO}\\
 
 \textbf{Exercise 15.0.6} (Leader-Follower equilibrium complexity). \textit{What is the computational complexity of finding a Leader-Follower equilibrium?}\\
 
+The problem of finding a Leader–Follower equilibrium is in \textsf{FP} class.\\
+
 \textbf{Exercise 15.0.7} (Leader-Follower equilibrium vs.  Nash equilibrium). \textit{Describe the relationships between Leader-Follower equilibrium and Nash equilibrium.}\\
+
+The value of the leader in a Leader-Follower equilibrium is never strictly smaller than the value of the leader in the Nash equilibrium that is best one for the leader.\\
+\textit{Proof}. In the worst case for the leader, in the Leader-Follower equilibrium the leader plays her strategy of the Nash equilibrium that is the best for her, while the follower plays in pure strategies. Since the follower breaks ties in favor of the leader, the value of the leader is always (except for degenerate cases) larger than the value she would receive in the Nash.\\
+(Leader-Follower vs. Nash strategy). One could question whether in a Leader-Follower equilibrium the leader always plays the strategy she would play in a Nash equilibrium and the follower plays in pure strategy the best response that is the best for the leader. If this property were true, we could find a Nash equilibrium in polynomial time by, at first, finding the Leader-Follower equilibrium (in polynomial time), and then, given the leader's strategy, by finding the strategy that the follower would play in the Nash equilibrium (it can be easily showed that also this step can be done in polynomial time). This would show that $\mathsf{P=PPAD}$. Instead, it can be showed that in a Leader-Follower equilibrium the leader could play actions that she would never play in any Nash equilibrium as remarked below.\\ (Leader-Follower vs. Nash strategy). In a Leader-Follower equilibrium the leader could play actions that she would never play in any Nash equilibrium and the value of the leader in a Leader-Follower equilibrium may be arbitrarily larger than the value in the best for her Nash equilibrium.\\
 
 \textbf{Exercise 15.0.8} (Leader-Follower equilibrium formulation with multi-type follower). \textit{Provide the mathematical programming formulation to find a Leader-Follower equilibrium with 2 players when the follower can be of multiple types.}\\
 
-\textbf{Exercise 15.0.9} (Finding a Leader-Follower equilibrium). \textit{Given a 2-player normal-form game in which the follower can be of multiple types, find a Leader-Follower equilibrium by means of AMPL+GUROBI.}\\
+The Leader-Follower equilibrium,when the follower can be of different types, can be found by solving the following mathematical programming problem (where $k = |\Theta_f|$):
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/img_3_15_05.png}
+\end{figure}
+whose nature is Multi–Linear Program (Multi–LP).\\
+
+\textbf{Exercise 15.0.9} (Finding a Leader-Follower equilibrium). \textit{Given a 2-player normal-form game in which the follower can be of multiple types, find a Leader-Follower equilibrium by means of AMPL + GUROBI.}\\
 
 \textbf{Exercise 15.0.10} (Leader-Follower equilibrium complexity). \textit{What is the computational complexity of finding a Leader-Follower equilibrium when the follower can be of multiple types?}\\
+
+(Multi-LP complexity).The Multi-LP has exponential complexity, enumerating an exponential number of LPs $O(m^k)$, each with a linear number of constraints $O(m \cdot k)$.\\
+(Bayesian Leader-Follower complexity with single-type leader). n nThe problem of finding a Leader-Follower equilibrium when the follower can be of different types is in \textsf{FNP}-hard.
 
 \section{EC 3.16}
 
 \textbf{Exercise 16.0.1} (Congestion game definition). \textit{Provide the definition of Congestion game.}\\
 
+A congestion game is a tuple $(N,M, (A_i)_{i \in N}, (c_j)_{j \in M}$ where:
+\begin{itemize}
+\item $N= \{1,2,\ldots,n\}$ is the set of players;
+\item $M= \{1,2,\ldots,m\}$ is the set of resources;
+\item $A_i \subseteq \wp (M)$ is the set of action of player $i$, where each action $a$ is a subset of the set of resources;
+\item $c_j: N \rightarrow \mathbb{R}$ is a function returning the cost related to resource $j$ when it is used by a given number of players.
+\end{itemize}
+
 \textbf{Exercise 16.0.2} (Pure-strategy Nash equilibrium in congestion games). \textit{Prove that every finite congestion game admits at least a pure-strategy Nash equilibrium.}\\
+(Pure-strategy Nash equilibrium existence). Every finite congestion game has a pure-strategy Nash equilibrium.\\
+\textit{Proof}. Let $\Phi : A \rightarrow \mathbb{R}$ be a function, called potential function, defined as:
+$$\Phi(\mathbf{a}) = \sum_{j=1}^{m} \sum_{k=1}^{\textsf{cong}_j (\mathbf{a})} c_j (k)$$
+Initially, we show that if, given an action profile $\mathbf{a}$, a player, say $i$, changes its strategy, say from $a_i$ to $a'_i$, we have $\Delta \Phi = \Delta C_i$, where:
+$$\Delta \Phi =\Phi\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right)-\Phi(\mathbf{a})$$
+$$\Delta C_{i} =C_{i}\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right)-C_{i}(\mathbf{a})$$
+That is, we can show that the difference in terms of costs incurred to player $i$ from switching from $a_i$ to $a'_i$ equals the difference of the potential function. The calculations are:
+$$C_{i}\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right) -C_{i}(\mathbf{a})=\sum_{j \in a_{i}^{\prime} \backslash a_{i}} c_{j}\left(\operatorname{cong}_{j}(\mathbf{a})+1\right) - \sum_{j \in a_{i} \backslash a_{i}^{\prime}} c_{j}\left(\operatorname{cong}_{j}(\mathbf{a})\right)=\Phi_{i}\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right)-\Phi_{i}(\mathbf{a})$$
+Now we show that there is always at least a pure-strategy Nash equilibrium. Consider an algorithm in which at each step a single player changes her strategy by playing her best response (unless the current strategy is already a best response). At each step, the player that makes the move that reduces her cost by $\Delta C_i$ and consequently reduces the potential function. Since $\Phi$ can assume only finite values, the application of such an algorithm eventually returns a local minimum corresponding to an action profile in which no player can reduce further her cost by unilateral deviations. That is, a local minimum of $\Phi$ corresponds to a pure-strategy Nash equilibrium.\\
 
 \textbf{Exercise 16.0.3} (Best-response paths). \textit{Provide the definition of best-response paths and prove that in every finite congestion game all the best-response paths are finite.}\\
 
+A best-response path is a sequence of action profiles such that every pair of consecutive action profiles $a$, $a'$ differ for the action of a single player that, in $a'$, plays her best response.\\
+
+The proof follows a simple algorithm in which, given an action profile,
+\begin{enumerate}
+\item take a player that is not playing her best response
+\item make her to play the best response
+\item this leads to a switch in which the cost reduces by a finite value
+\item repeat it, until a pure Nash is not reached
+\item since at every switch the potential function reduces by a non-infinitesimal value and the potential function is lower bounded, the algorithm must terminate in finite time
+\end{enumerate}
+
 \textbf{Exercise 16.0.4} (Finding best-response paths). \textit{Given a congestion game, find a best-response path.}\\
 
-\textbf{Exercise 16.0.5} (Potential functions). \textit{Provide the definitions of potential functions and discuss the relation-ships between potential games and congestion games.}\\
+\textcolor{red}{TODO}\\
+
+\textbf{Exercise 16.0.5} (Potential functions). \textit{Provide the definitions of potential functions and discuss the relationships between potential games and congestion games.}\\
+
+(Exact potential function). A function $\Phi: A \rightarrow \mathbb{R}$ is an exact potential function for a game if, for every $a\in A$ and for every $i \in N$, $\Delta \Phi = \Delta C_i$.\\
+(Weighted potential function). A function $\Phi: A \rightarrow \mathbb{R}$ is a weighted potential function for a game if, for every $a \in A $ and for every $i \in N$,$\Delta \Phi = \omega_i \Delta C_i$ for some positive $\omega_i$.\\
+(Ordinal potential function). A function $\Phi: A \rightarrow \mathbb{R}$ is an ordinal potential function for a game if, for every $a \in A$ and for every $i \in N$, $(\Delta C_i < 0) \Rightarrow (\Delta \Phi < 0)$.\\
 
 \textbf{Exercise 16.0.6} (Characterization of games admitting an exact potential function). \textit{Discuss when a normal-form game admits an exact potential function and prove that.}\\
 
+A game $(N,A,U)$ admits an exact potential function if and only if there are utility functions $\{U_i^c\}_{i \in N}$ and $\{U_i^d\}_{i \in N}$ such that:
+\begin{itemize}
+\item for every player $i \in N$ utility function $U_i(\mathbf{a})$ satisfies the property $U_i(\mathbf{a})= U_i^c(\mathbf{a}) + U_i^d(\mathbf{a})$;
+\item the game $(N,A,U^c)$, $(U^c = \{U_1^c, \ldots, U_n^c\}$, is a coordination game;
+\item the game $(N,A,U^d)$, where $(U^d = \{U_1^d, \ldots, U_n^d\}$, is a dummy game.
+\end{itemize}
+Proof.(If) If each $U_i(\mathbf{a})$ can be written as $U_i(\mathbf{a}) = U_i^c(\mathbf{a}) + U_i^d(\mathbf{a})$, then function $\Phi(\mathbf{a}) = U_i^c(\mathbf{a})$ is a potential function. Indeed, $\Phi (a_i, \mathbf{a}_{-i} - \Phi (a'_i, \mathbf{a}_{-i})$ equals the difference in utility for player $i$ from strategy profile $(a'_i, \mathbf{a}_{-i})$ to $(a_i, \mathbf{a}_{-i})$.\\
+(Only if) Assume that a game admits a potential function $\Phi$. Set $U_i^c(\mathbf{a})= \Phi(\mathbf{a})$ and $U_i^d(\mathbf{a}) = U_i^(\mathbf{a}) - \Phi(\mathbf{a})$. We have:
+\begin{itemize}
+\item the game with $U_i^c(\mathbf{a})$ is a coordination game since all the players have the same utility; 
+\item the game with $U_i^c(\mathbf{d})$ is a dummy game since, for every $a_i, a'_i \in A_i$
+\end{itemize}
+$$U_{i}\left(a_{i}, \mathbf{a}_{-i}\right)-U_{i}\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right)=\Phi\left(a_{i}, \mathbf{a}_{-i}\right)-\Phi\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right) \Leftrightarrow $$
+$$ \Leftrightarrow \underbrace{U_{i}\left(a_{i}, \mathbf{a}_{-i}\right)-\Phi\left(a_{i}, \mathbf{a}_{-i}\right)}_{U_{i}^{d}\left(a_{i}, \mathbf{a}_{-i}\right)}=\underbrace{U_{i}\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right)-\Phi\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right)}_{U_{i}^{d}\left(a_{i}^{\prime}, \mathbf{a}_{-i}\right)}$$
+
 \textbf{Exercise 16.0.7} (Inefficiency bounds). \textit{Provide the definition of Price of Anarchy and Price of Stability.}\\
+
+(Socially best solution). The socially best solution $\mathbf{a}^{SB}$ is the action profile minimizing the social cost, i.e.
+$$
+\mathbf{a}^{S B} \in \arg \min _{\mathbf{a} \in A} \sum_{i \in N} C_{i}(\mathbf{a})
+$$
+(Socially best Nash equilibrium). The socially best Nash equilibrium $\mathbf{a}^{SBN}$ is the Nash equilibrium minimizing the social cost, i.e.
+$$
+\mathbf{a}^{S B N} \in \arg \min _{\mathbf{a} \in A: \mathbf{a} \text { is a Nash equilibrium}} \sum_{i \in N} C_{i}(\mathbf{a})
+$$
+(Socially worst Nash equilibrium). The socially worst Nash equilibrium $\mathbf{a}^{SWN}$ is the Nash equilibrium maximizing the social cost, i.e.
+$$
+\mathbf{a}^{S W N} \in \arg \max _{\mathbf{a} \in A: \mathbf{a} \text { is a Nash equilibrium}} \sum_{i \in N} C_{i}(\mathbf{a})
+$$
+(Price of Stability). Price of Stability (PoS) provides the inefficiency of the socially best Nash equilibrium w.r.t. the best social solution as:
+$$
+\operatorname{PoS}=\frac{\sum_{i \in N} C_{i}\left(\mathbf{a}^{S B N}\right)}{\sum_{i \in N} C_{i}\left(\mathbf{a}^{S B}\right)}
+$$
+that is always larger than or equal to $1$.\\
+(Price of Anarchy). Price of Anarchy (PoA) provides the inefficiency of the socially worst Nash equilibrium w.r.t. the best social solution as:
+$$
+\mathrm{PoA}=\frac{\sum_{i \in N} C_{i}\left(\mathbf{a}^{S W N}\right)}{\sum_{i \in N} C_{i}\left(\mathbf{a}^{S B}\right)}
+$$
+that is always larger than or equal to $1$.\\
 
 \textbf{Exercise 16.0.8} (PoA and PoS unboundness). \textit{Provide an example in which PoA and PoS are unbounded.}\\
 
-\textbf{Exercise 16.0.9} (Upper bound over best-response paths length). \textit{Provide an upper bound over the length of best-response paths in singleton congestion games and prove it.}
+\textcolor{red}{TODO}\\
+
+\textbf{Exercise 16.0.9} (Upper bound over best-response paths length). \textit{Provide an upper bound over the length of best-response paths in singleton congestion games and prove it.}\\
+
+(Singleton congestion game).A congestion game is called singleton if, for every player $i$ all the actions $a_i \in A_i$ contain a single resource.\\
+(Upper bound over the best-response paths). In a singleton congestion game with $n$ players and $m$ resources, best-response paths have length $O(n?2 m)$.\\
+\textit{Proof}. We know that any singleton congestion game with $n$ players and $m$ resources is equivalent to a game with $n$ players and $m$ resources in which the maximum cost is $nm$. It can be easily showed that $	Phi$ is upper bounded by $n^2 m$. Indeed, we have:
+$$\Phi(\mathbf{a})=\sum_{j=1}^{m} \sum_{k=1}^{\operatorname{cong}_{j}(\mathbf{a})} c_{j}(k)=\sum_{j=1}^{m} \sum_{k=1}^{\operatorname{cong}_{j}(\mathbf{a})} n m=n^{2} m$$
+Furthermore, along best-response paths $\Delta \Phi \leqslant 1$ since each pair of costs differs for at least 1. Since $\Phi$ strictly reduces along best-response paths, no best-response path can be longer than $n^2 m$.
 
 \section{EC 3.17}
 \textbf{Exercise 17.0.1} (Social choice functions). \textit{Provide the definition of social choice function. Provide one example.}\\
