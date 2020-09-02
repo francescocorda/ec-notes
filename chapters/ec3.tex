@@ -230,12 +230,46 @@ Furthermore, along best-response paths $\Delta \Phi \leqslant 1$ since each pair
 \section{EC 3.17}
 \textbf{Exercise 17.0.1} (Social choice functions). \textit{Provide the definition of social choice function. Provide one example.}\\
 
+A social choice function $f: \Theta_1 \times \ldots \times \Theta_n \rightarrow X$ assigns an outcome $x$ to each possible profile of players' types.\\
+
 \textbf{Exercise 17.0.2} (Efficiency). \textit{Provide the definitions of ex ante, ex interim, ex post efficiency for social choice functions. Answer to the following questions.
 \begin{itemize}
 \item Is the social choice function implemented by the Second-Price auction efficient in ex post?
 \item Provide an example of social choice function that is efficient in ex post, but not in ex interim.
 \item Provide an example of social choice function that is efficient in ex interim, but not in ex post.\\
 \end{itemize}}
+
+(Ex post efficiency). A social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$ is ex post efficient if there is no other social choice function $f^{\prime}$ such that:
+$$
+\begin{array}{ll}
+\forall i \in N, \forall \theta \in \Theta: & U_{i}\left(f^{\prime}(\theta), \theta_{i}\right) \geqslant U_{i}\left(f(\theta), \theta_{i}\right) \quad \text { and } \\
+\exists i \in N, \exists \theta \in \Theta: & U_{i}\left(f^{\prime}(\theta), \theta_{i}\right)>U_{i}\left(f(\theta), \theta_{i}\right)
+\end{array}
+$$
+
+(Ex interim efficiency). A social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$ is ex interim efficient if there is no other social choice function $f^{\prime}$ such that:
+$$
+\begin{array}{ll}
+\forall i \in N, \forall \theta_{i} \in \Theta_{i}: & \mathbb{E}_{\theta_{-i}}\left[U_{i}\left(f^{\prime}(\theta), \theta_{i}\right)\right] \geqslant \mathbb{E}_{\theta_{-i}}\left[U_{i}\left(f(\theta), \theta_{i}\right)\right] \text { and } \\
+\exists i \in N, \exists \theta_{i} \in \Theta_{i}: & \mathbb{E}_{\theta_{-i}}\left[U_{i}\left(f^{\prime}(\theta), \theta_{i}\right)\right]>\mathbb{E}_{\theta_{-i}}\left[U_{i}\left(f(\theta), \theta_{i}\right)\right]
+\end{array}
+$$
+(Ex ante efficiency). A social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$ is ex ante efficient if $f$ there no other social choice function $f^{\prime}$ such that:
+$$
+\begin{array}{ll}
+\forall i \in N: & \mathbb{E}_{\theta}\left[U_{i}\left(f^{\prime}(\theta), \theta_{i}\right)\right] \geqslant \mathbb{E}_{\theta}\left[U_{i}\left(f(\theta), \theta_{i}\right)\right] \text { and } \\
+\exists i \in N: & \mathbb{E}_{\theta}\left[U_{i}\left(f^{\prime}(\theta), \theta_{i}\right)\right]>\mathbb{E}_{\theta}\left[U_{i}\left(f(\theta), \theta_{i}\right)\right]
+\end{array}
+$$
+
+(Ex post efficiency).Consider the above social choice functions:
+\begin{itemize}
+\item Continuous voting with average allocation: it is ex post efficient. Indeed, moving away from the outcome chosen by $f$, the utility of at least one player decreases.
+\item Continuous voting with median allocation: it is ex post efficient. Indeed, moving away from the outcome chosen by $f$, the utility of at least one player decreases.
+\item Auction without payments: it is ex post efficient. Indeed, each outcome is Pareto efficient.
+\item First-price auction: it is not ex post efficient. Indeed $f'$ defined in the auction without payments Pareto dominates $f$ defined in first-price auction.
+\item Second-price auction: it is not ex post efficient. Indeed $f'$ defined in the auction without payments Pareto dominates $f$ defined in second-price auction.
+\end{itemize}
 
 \textbf{Exercise 17.0.3} (Individual rationality). \textit{Provide the definitions of ex ante, ex interim, ex post individual rationality for social choice functions. Answer to the following questions.
 \begin{itemize}
@@ -245,20 +279,108 @@ Furthermore, along best-response paths $\Delta \Phi \leqslant 1$ since each pair
 \item Provide an example of social choice function that is individually rational in ex interim, but not in ex ante.\\
 \end{itemize}}
 
+(Ex post individually rationality). A social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$ is ex post individually rational if:
+$$
+\forall i \in N, \forall \theta \in \Theta: \quad U_{i}\left(f(\theta), \theta_{i}\right) \geqslant \bar{U}_{i}\left(\theta_{i}\right)
+$$
+where $\bar{U}_{i}\left(\theta_{i}\right)$ is the utility of player $i$ when her type is $\theta_{i}$ and she does not participate to the social choice.
+
+(Ex interim individually rationality). A social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$ is ex interim individually rational if:
+$$
+\forall i \in N, \forall \theta_{i} \in \Theta_{i}: \quad \mathbb{E}_{\theta_{-i}}\left[U_{i}\left(f(\theta), \theta_{i}\right)\right] \geqslant \bar{U}_{i}\left(\theta_{i}\right)
+$$
+where $\bar{U}_{i}\left(\theta_{i}\right)$ is the utility of player $i$ when her type is $\theta_{i}$ and she does not participate to the social choice.
+
+(Ex ante individually rationality). A social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$ is ex ante individually rational if:
+$$
+\forall i \in N: \quad \mathbb{E}_{\theta}\left[U_{i}\left(f(\theta), \theta_{i}\right)\right] \geqslant \mathbb{E}_{\theta}\left[\bar{U}_{i}\left(\theta_{i}\right)\right]
+$$
+where $\bar{U}_{i}\left(\theta_{i}\right)$ is the utility of player $i$ when her type is $\theta_{i}$ and she does not participate to the social choice.
+ 
+(Ex post individually rationality). Consider the above social choice functions, under the assumption that $bar{U}_{i}\left(\theta_{i}\right)=0$ for every $i \in N$ and $\theta_i \in \Theta_i$:
+\begin{itemize}
+\item Continuous voting with average allocation: it is ex post individually rational. Indeed, for every outcome $x \in X$ the utility of each player is not negative.
+\item Continuous voting with median allocation: it is ex post individually rational. Indeed, for every outcome $x \in X$ the utility of each player is not negative.
+\item Auction without payments: it is ex post individually rational. Indeed, each outcome provides each player with a non-negative utility.
+\item First-price auction: it is ex post individually rational. Indeed, each outcome provides each player with a non-negative utility.
+\item Second-price auction: it is ex post individually rational. Indeed, each outcome provides each player with a non-negative utility.
+\end{itemize}
+
 \textbf{Exercise 17.0.4} (Dictatorship). \textit{Provide the definition of dictatorship for social choice functions. Provide an example.}\\
+
+A social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$ is dictatorial if there is a player $i$ (said dictator) such that for every $\theta \in \Theta$ it holds:
+$$
+U_{i}\left(f(\theta), \theta_{i}\right) \geqslant U_{i}\left(x, \theta_{i}\right) \quad \forall x \in X
+$$
 
 \section{EC 3.18}
 
 \textbf{Exercise 18.0.1} (Economic mechanism). \textit{Provide the definition of economic mechanism.}\\
 
-\textbf{Exercise 18.0.2} (Implementation of a social choice function). \textit{Provide the definition of implementation of asocial choice function.}\\
+An economic mechanism is a tuple $(A_1,\ldots,A_n,X,g)$ where:
+\begin{itemize}
+\item $A_i$ is the set of actions of player $i$;
+\item $X$ is the set of outcomes;
+\item $g: A_1 \times \ldots \times A_n\rightarrow X$ is the outcome function.
+\end{itemize} 
+
+\textbf{Exercise 18.0.2} (Implementation of a social choice function). \textit{Provide the definition of implementation of a social choice function.}\\
+
+An economic mechanism $\left(A_{1}, \ldots, A_{n}, X, g\right)$ implements a social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$ if there is a pure-strategy equilibrium (according to
+some solution concept) strategy profile $\left(s_{1}^{*}, \ldots, s_{n}^{*}\right)$ of the Bayesian game induced by the economic mechanism such that:
+$$
+g\left(s_{1}^{*}\left(\theta_{1}\right), \ldots, s_{n}^{*}\left(\theta_{n}\right)\right)=f\left(\theta_{1}, \ldots, \theta_{n}\right) \text { for every }\left(\theta_{1}, \ldots, \theta_{n}\right) \in \Theta_{1} \times \ldots \times \Theta_{n}
+$$
+where $s_{i}^{*}\left(\theta_{i}\right)$ denotes the optimal strategy of player i when her type is $\theta_{i}$.\\
 
 \textbf{Exercise 18.0.3} (Direct-revelation mechanism). \textit{Provide the definitions of direct-revelation mechanism and indirect-revelation mechanism and provide an example for each one of them.}\\
 
+(Direct (revelation) economic mechanism). Given a social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow$ $X$, a direct (revelation) economic mechanism is a mechanism $\left(\Theta_{1}, \ldots, \Theta_{n}, X, f\right)$
+
+(Direct (revelation) economic mechanism). $A$ direct mechanism is an economic mechanism in which the actions available to each player $i$ are given by the set of types of player $i$ (i.e., each player can only report a type from the set of the possible ones) and the outcome function is a social choice function.
+
+(Indirect (revelation) economic mechanism). An economic mechanism that is not direct is said indirect.\\
+
 \textbf{Exercise 18.0.4} (Incentive compatibility). \textit{Provide the definition of incentive compatibility.}\\
+
+A social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow$ $X,$ is incentive compatible (or truthfully implementable) if the Bayesian game induced by the direct revelation economic mechanism $(\Theta_{1}, \ldots, \Theta_{n}, X, f)$ has a pure equilibrium (according to some solution concept) $(s^*_1, \ldots, s^*_n)$ such that $s^*_i (\theta_i) = \theta_i$ for every player $i$ and type $\theta_i$. (And therefore the direct revelation economic mechanism $(\Theta_{1}, \ldots, \Theta_{n}, X, f)$ implements $f$).
+
+Incentive compatibility can be satisfied according to different solution concepts, among them:
+\begin{itemize} 
+\item Dominant-strategy incentive compatibility (DSIC): if $(s^*_1, \ldots, s^*_n)$ where $s^*_i (\theta_i) = \theta_i$ for every player $i$ and type profile $\theta_i$ is a (weak) Dominant-Strategy equilibrium;
+\item Bayesian incentive compatibility (BNIC): if $(s^*_1, \ldots, s^*_n)$ where $s^*_i (\theta_i) = \theta_i$ for every player $i$ and type $\theta_i$ is a Bayes-Nash equilibrium.
+\end{itemize}
 
 \textbf{Exercise 18.0.5} (Checking incentive compatibility). \textit{Given a social choice function, check whether it is incentive compatible.}\\
 
-\textbf{Exercise 18.0.6} (Revelation principle for Dominant-Strategy equilibrium). \textit{Provide the statement of the rev-elation principle and the proof.}\\
+\textcolor{red}{TODO}\\
+
+\textbf{Exercise 18.0.6} (Revelation principle for Dominant-Strategy equilibrium). \textit{Provide the statement of the revelation principle and the proof.}\\
+
+Given a social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$, if there is an economic mechanism $\left(A_{1}, \ldots, A_{n}, X, g\right)$ implementing $f$ in Dominant Strategy equilibrium, then $f$ is DSIC.
+Proof. If $\left(A_{1}, \ldots, A_{n}, X, g\right)$ implements $f$ in Dominant-Strategy equilibrium, then there is a strategy profile $\left(s_{1}^{*}, \ldots, s_{n}^{*}\right)$ such that:
+$$
+g\left(s_{1}^{*}\left(\theta_{1}\right), \ldots, s_{n}^{*}\left(\theta_{n}\right)\right)=f\left(\theta_{1}, \ldots, \theta_{n}\right) \quad \forall\left(\theta_{1}, \ldots, \theta_{n}\right) \in \Theta
+$$
+and
+$$
+U_{i}\left(g\left(s_{i}^{*}\left(\theta_{i}\right), s_{-i}\left(\theta_{-i}\right)\right), \theta_{i}\right) \geqslant U_{i}\left(g\left(s_{i}\left(\theta_{i}\right), s_{-i}\left(\theta_{-i}\right)\right), \theta_{i}\right) \quad \forall i \in N, \theta_{i} \in \Theta_{i}, \theta_{-i} \in \Theta_{-i}, s_{i}, s_{-i}
+$$
+The above condition is obviously satisfied for any restriction over $s_{i}$ and $s_{-i} .$ Thus, we fix $s_{i}\left(\theta_{i}\right)=s_{i}^{*}\left(\hat{\theta}_{i}\right)$ (that is, we are restricting $s_{i}\left(\theta_{i}\right)$ to the set of the optimal strategies $s_{i}^{*}$ allowing player $i$ to select the strategy just by misreporting the type) and we fix $s_{-i}\left(\theta_{-i}\right)=s_{-i}^{*}\left(\theta_{-i}\right)$ (that is, we are restricting $s_{-i}\left(\theta_{-i}\right)$ to the set of the optimal strategies $\left.s_{-i}^{*}\left(\theta_{-i}\right)\right)$. We obtain:
+$$
+U_{i}\left(g\left(s_{i}^{*}\left(\theta_{i}\right), s_{-i}^{*}\left(\theta_{-i}\right)\right), \theta_{i}\right) \geqslant U_{i}\left(g\left(s_{i}^{*}\left(\hat{\theta}_{i}\right), s_{-i}^{*}\left(\theta_{-i}\right)\right), \theta_{i}\right) \quad \forall i \in N, \theta_{i} \in \Theta_{i}, \theta_{-i} \in \Theta_{-i}, \hat{\theta}_{i} \in \Theta_{i}
+$$
+Now we substitute $g\left(s_{i}^{*}\left(\theta_{i}\right), s_{-i}^{*}\left(\theta_{-i}\right)\right)$ with $f\left(\theta_{i}, \theta_{-i}\right)$ and $g\left(s_{i}^{*}\left(\hat{\theta}_{i}\right), s_{-i}^{*}\left(\theta_{-i}\right)\right)$ with $f\left(\hat{\theta}_{i}, \theta_{-i}\right)$, obtaining:
+$$
+U_{i}\left(f\left(\theta_{i}, \theta_{-i}\right), \theta_{i}\right) \geqslant U_{i}\left(f\left(\hat{\theta}_{i}, \theta_{-i}\right), \theta_{i}\right) \quad \forall i \in N, \theta_{i} \in \Theta_{i}, \theta_{-i} \in \Theta_{-i}, \hat{\theta}_{i} \in \Theta_{i}
+$$
+This condition exactly corresponds to the condition of incentive compatibility in dominant strategies.\\
 
 \textbf{Exercise 18.0.7} (Gibbard-Satterthwaite impossibility theorem). \textit{Provide the statement of the Gibbard-Satterthwaite impossibility theorem.}\\
+
+Given a social choice function $f: \Theta_{1} \times \ldots \times \Theta_{n} \rightarrow X$, if
+\begin{itemize}
+\item $X$ is finite and $|X| \leqslant 3$,
+\item $f$ is onto (surjective),
+\item the utility functions of all the players cover the entire space of strict-preference utility functions, then the social choice function $f$ is DSIC if and only if it is dictatorial.
+\end{itemize}
