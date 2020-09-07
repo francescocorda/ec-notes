@@ -217,7 +217,12 @@ that is always larger than or equal to $1$.\\
 
 \textbf{Exercise 16.0.8} (PoA and PoS unboundness). \textit{Provide an example in which PoA and PoS are unbounded.}\\
 
-\textcolor{red}{TODO}\\
+Consider the routing game with the following network:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{images/img_3_16_01.png}
+\end{figure}
+There are $n$ players, each player $i$ starting from node $S_i$. There is only one sink that is node $B$. All the players using an edge (corresponding to a resource) share uniformly the cost. Notice that all the edges can be used by only one player, except the edge connecting node $A$ to node $B$ that, in principle, can be used by all the players.Let $k$ to be the users using such an edge, the cost of each user is $(1 + \epsilon)/k$. The PoS of the above game in unbounded, asymptotically depending logarithmically on $n$. The socially best solution is when all the players move to $A$ and then to $B$, with a social cost of $1+\epsilon$. Each player has a cost of $(1 + \epsilon)/n$. This is not a Nash equilibrium, since player $n$ strictly prefers to go directly to $B$, with a cost of $1/n$. Once player $n$ changed her action, player $n-1$ does the same. Indeed, $(1+\epsilon)/(n-1)$ is strictly larger than $1/(n-1)$. The same happens for all the other players. The only possible Nash equilibrium is when each player moves directly to $B$, with a social cost of $\sum_{i=1}^{n}{\frac{1}{i}}$. Therefore, we have that $\sum_{i=1}^{n}{\frac{1}{i}} = \Theta(\ln (n))$ goes to infinity.\\
 
 \textbf{Exercise 16.0.9} (Upper bound over best-response paths length). \textit{Provide an upper bound over the length of best-response paths in singleton congestion games and prove it.}\\
 

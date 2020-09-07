@@ -2,6 +2,14 @@
 
 \textbf{Exercise 19.0.1} (Quasi-linear environment). \textit{Provide the definition of quasi-linear environment and provide an example of social choice function in quasi-linear environment.}\\
 
+A quasi-linear environment is characterized by:
+\begin{itemize}
+\item outcomes space: $X = \{k,p_1,\ldots,p_n): k \in K, p_i \in \mathbb{R} \}$);
+\item utility functions: $U_{i}\left(x, \theta_{i}\right)=U_{i}\left(\left(k, p_{1}, \ldots, p_{n}\right), \theta_{i}\right)=v_{i}\left(k, \theta_{i}\right)-p_{i}$, where $v_{i}: K \times \Theta_{i} \rightarrow \mathbb{R}$.
+\end{itemize}
+
+The set $K$ represents the set of allocations. The function $v_i(k,\theta_i)$ represents the valuation of allocation $k$ for type $\theta_i$ of player $i$. In principle, function $v_i$ can be any. The term $p_i$ represents the monetary payment of player $i$ to the mechanism. (The name "quasi-linear" is due to the form of the utility function, that is linear except for $v_i$ that can be any.)\\
+
 \textbf{Exercise 19.0.2} (Properties in quasi-linear environment). \textit{Provide the definition of the following properties in quasi-linear environment and provide an example of social choice function satisfying each property:
 \begin{itemize}
 \item weak and strict budget balance;
@@ -9,69 +17,238 @@
 \item maximality in the range.\\
 \end{itemize}}
 
-\textbf{Exercise 19.0.3} (Dictatorship and quasi-linear environment). \textit{Prove that no social choice function in quasi-linear environment can be dictatorial.}
+(Allocation efficiency). A social choice function $f(\theta)=\left(k(\theta), p_{1}(\theta), \ldots, p_{n}(\theta)\right),$ where $k(\theta)$ is called allocation function, is allocatively efficient if $k(\theta)$ is defined as:
+$$
+k(\theta) \in \arg \max _{k^{\prime} \in K} \sum_{i \in N} v_{i}\left(k^{\prime}, \theta_{i}\right)
+$$
+(Maximality in the range). A social choice function $f(\theta)=\left(k(\theta), p_{1}(\theta), \ldots, p_{n}(\theta)\right)$ is maximal in its range $K^{\prime} \subseteq K$ if $k(\theta)$ is allocatively efficient over $K^{\prime}$.
+
+((Weak) budget balance). A social choice function $f(\theta)=\left(k(\theta), p_{1}(\theta), \ldots, p_{n}(\theta)\right)$ is weakly budget balanced if:
+$$
+\sum_{i \in N} p_{i}(\theta) \geqslant 0 \quad \forall \theta \in \Theta
+$$
+while it is strictly budget balanced if
+$$
+\sum_{i \in N} p_{i}(\theta)=0 \quad \forall \theta \in \Theta
+$$
+(Auctions and (weak) budget balance).A social choice that is weakly budget balanced assures the auctioneer to be never (i.e., for every type profile $\theta \in \Theta$) in deficit and therefore the auctioneer has always a non-negative revenue.\\
+
+\textbf{Exercise 19.0.3} (Dictatorship and quasi-linear environment). \textit{Prove that no social choice function in quasi-linear environment can be dictatorial.}\\
+
+No social choice function quasi-linear environment is dictatorial.\\
+\textit{Proof.} Assume by contradiction that there is a social choice function $f$ that is dictatorial in quasi-linear environment. This means that there is a dictator player $d$ such that:
+$$
+U_{d}\left(f(\theta), \theta_{d}\right) \geqslant U_{d}\left(x, \theta_{d}\right) \quad \forall x \in X, \theta \in \Theta
+$$
+where $U_{d}\left(f(\theta), \theta_{d}\right)=v_{d}\left(k(\theta), \theta_{d}\right)-p_{d}(\theta) .$ However, it is sufficient to consider the outcome $\bar{x}=\left(k(\theta), p_{1}, \ldots, p_{d} - \epsilon, \ldots, p_{n}\right)$ where $\epsilon>0$ to observe that $U_{d}\left(\bar{x}, \theta_{d}\right) \geqslant U_{d}\left(f(\theta), \theta_{d}\right)$ and therefore that we have a contradiction. $\square$
 
 \section{EC 4.20}
 
 \textbf{Exercise 20.0.1} (Groves mechanisms). \textit{Provide the definition of Groves mechanisms.}\\
 
+A direct revelation economic mechanism $\left(\Theta_{1}, \ldots, \Theta_{n}, X, f\right)$ in which $f(\theta)=\left(k(\theta), p_{1}(\theta), \ldots, p_{n}(\theta)\right)$ is a Groves mechanism if:
+\begin{itemize}
+\item $k(\theta) \in \arg \max _{k^{\prime} \in K} \sum_{i \in N} v_{i}\left(k^{\prime}, \theta_{i}\right)$ where $K$ is the space of allocations,
+\item $p_{i}(\theta)=h_{i}\left(\theta_{-i}\right)-\sum_{j \in N \backslash\{i\}} v_{j}\left(k(\theta), \theta_{j}\right) \quad \forall i \in N$,
+\end{itemize}
+where $h_{i}: \Theta_{-i} \rightarrow \mathbb{R}$ is an arbitrary function on $\theta_{-i}$\\
+
 \textbf{Exercise 20.0.2} (Groves Theorem). \textit{Provide the statement of Groves theorem and provide a sketch of the proof.}\\
+
+Any social choice function $f$ such that $\left(\Theta_{1}, \ldots, \Theta_{n}, X, f\right)$ is a Groves mechanism is DSIC.\\
+\textit{Proof.} Given the reported types of the all the players $\hat{\theta},$ the mechanism chooses the allocation as:
+$$
+k(\hat{\theta}) \in \arg \max _{k^{\prime} \in K} \sum_{i \in N} v_{i}\left(k^{\prime}, \hat{\theta}_{i}\right)
+$$
+That is, the mechanism maximizes the social welfare given the types reported by the players. Focus on a generic player $i,$ her utility is:
+$$
+U_{i}\left(k\left(\hat{\theta}_{i}, \hat{\theta}_{-i}\right), \theta_{i}\right)= \underbrace{v_{i}\left(k\left(\hat{\theta}_{i}, \hat{\theta}_{-i}\right), \theta_{i}\right)+\sum_{j \in N \backslash\{i\}} v_{j}\left(k\left(\hat{\theta}_{i}, \hat{\theta}_{-i}\right), \hat{\theta}_{j}\right)}_{Z(\hat{\theta}_{i})}-h_{i}\left(\hat{\theta}_{-i}\right)
+$$
+where the term $Z(\hat{\theta}_{i})$ can be controlled by player $i$ by misreporting her type, since by varying $\hat{\theta}_{i}$ the allocation chosen by the mechanism changes. However, it can be easily seen that the term $Z(\hat{\theta}_{i})$ is maximizes when $\hat{\theta}_{i}=\theta_{i}$ independently of $\hat{\theta}_{-i}$.\\
 
 \textbf{Exercise 20.0.3} (Application of Groves mechanisms). \textit{Given a function $h_i (\theta_{-i})$ and a setting (composed of players, their types, valuation function, outcomes), apply the corresponding Groves mechanism. Additional question: prove that the given Groves mechanism is or not individually ration/weakly budget balanced in the given setting.}\\
 
+TODO\\
+
 \textbf{Exercise 20.0.4} (Groves mechanisms and individually rationality). \textit{Is a Groves mechanism always individually rational (in ex post)? Provide, if there exist, two examples: in the first, a Groves mechanism is individually rational (in ex post), and, in the second, a Groves mechanism (potentially different from the previous one) is not individually rational (in ex post)?}\\
+
+It is possible to design Groves mechanisms that are not individually rational. For example, in the case of single-item auction, it is sufficient to design $h_i (\hat{\theta}_{-i})$ as a large constant. This would make all the payments strictly positive and strictly larger than the players' valuations over the allocations. The definition of the appropriate $h_i (\hat{\theta}_{i})$ allows the mechanism to be individually rational.\\
 
 \textbf{Exercise 20.0.5} (Groves mechanisms and weak budget balance). \textit{Is a Groves mechanism always weak budget balance (in ex post)? Provide, if there exist, two examples: in the first, a Groves mechanism is weak budget balance (in ex post), and, in the second, a Groves mechanism (potentially different from the previous one) is not weak budget balance (in ex post)?}\\
 
+It is possible to design Groves' mechanisms that are not weakly budget balance. For example, in the case of single-item auction, it is sufficient to design $h_i (\hat{\theta}_{-i})=0$. This would make the payments of all the players except for the winner of the auction strictly negative and therefore the revenue of the mechanism would be strictly negative. The definition of the appropriate $h_i (\hat{\theta}_{i})$ allows the mechanism to be weakly budget balanced.\\
+
 \textbf{Exercise 20.0.6} (Weighted Groves mechanisms). \textit{Provide the definition of weighted Groves mechanisms.}\\
+
+A direct revelation economic mechanism $\left(\Theta_{1}, \ldots, \Theta_{n}, X, f\right)$ in which $f(\theta)=\left(k(\theta), p_{1}(\theta), \ldots, p_{n}(\theta)\right)$ is a weighted Groves mechanism if:
+\begin{itemize}
+\item $k\left(\theta_{1}, \ldots, \theta_{n}\right) \in \arg \max _{k^{\prime} \in K^{\prime}}\left(c_{k^{\prime}}+\sum_{i \in N} w_{i} v_{i}\left(k^{\prime}, \theta_{i}\right)\right)$
+\item $p_{i}(\theta)=\frac{1}{w_{i}} h_{i}\left(\theta_{-i}\right)-\sum_{j \in N \backslash\{i\}} \frac{w_{j}}{w_{i}} v_{j}\left(k(\theta), \theta_{j}\right)-\frac{c_{k(\theta)}}{w_{i}} \quad \forall i \in N$
+\end{itemize}
+where $h_{i}: \Theta_{-i} \rightarrow \mathbb{R}$ is an arbitrary function on $\theta_{-i}$.\\
 
 \textbf{Exercise 20.0.7} (Application of weighted Groves mechanisms). \textit{Given a function $h_i (\theta_{-i})$ and a setting (com-posed of players, their types, valuation function, outcomes, and weights), apply the corresponding weighted Groves mechanism. Additional question: prove that the given weighted Groves mechanism is or not individually ration/weakly budget balanced in the given setting.}\\
 
+TODO\\
+
 \textbf{Exercise 20.0.8} (VCG mechanism). \textit{Provide the definition of VCG mechanism.}\\
+
+A direct revelation economic mechanism $\left(\Theta_{1}, \ldots, \Theta_{n}, X, f\right)$ in which $f(\theta)=\left(k(\theta), p_{1}(\theta), \ldots, p_{n}(\theta)\right)$ is a Clarke mechanism if:
+\begin{itemize}
+\item $k(\theta) \in \arg \max _{k^{\prime} \in K} \sum_{i \in N} v_{i}\left(k^{\prime}, \theta_{i}\right)$,
+\item $p_{i}(\theta)=\max _{k^{\prime} \in K_{-i}} \sum_{j \in N \backslash\{i\}} v_{j}\left(k^{\prime}, \theta_{j}\right)-\sum_{j \in N \backslash\{i\}} v_{j}\left(k(\theta), \theta_{j}\right) \quad \forall i \in N$,
+\end{itemize}
+where $K_{-i}$ is the set of allocations when player $i$ is not present.\\
 
 \textbf{Exercise 20.0.9} (Application of VCG mechanisms). \textit{Given a setting (composed of players, their types, valuation function, outcomes), apply the VCG mechanism. Additional question: prove that the VCG is or not individually ration/weakly budget balanced in the given setting.}\\
 
+TODO\\
+
 \textbf{Exercise 20.0.10} (VCG mechanism and individually rationality). \textit{Is the VCG mechanism always individually rational (in ex post)? Provide, if there exist, two examples: in the first, the VCG mechanism is individually rational (in ex post), and, in the second, the VCG mechanism (potentially different from the previous one) is not individually rational (in ex post)?}\\
 
+(Choice set monotonicity, no-negative externality and Clarke mechanism).The Clarke mechanism when:
+\begin{itemize}
+\item $\bar{U}_i (\theta_i) = 0$ for every $i \in N, \theta_i \in \Theta_i$;
+\item choice-set monotonicity is satisfied;
+\item no-negative externality is satisfied;
+\end{itemize}
+is individually rational in ex post.\\
+
 \textbf{Exercise 20.0.11} (VCG mechanism and weak budget balance). \textit{Is VCG mechanism always weak budget balance(in ex post)? Provide, if there exist, two examples: in the first, the VCG mechanism is weak budget balance(in ex post), and, in the second, the VCG mechanism (potentially different from the previous one) is not weak budget balance (in ex post)?}\\
+
+(No-single-agent effect and Clarke mechanism).If no-single-agent effect property holds, the Clarke mechanism is weakly budget balanced and no payment is strictly negative.
 
 \section{EC 4.21}
 
 \textbf{Exercise 21.0.1} (Redistribution function). \textit{Provide the definition of redistribution function.}\\
 
+A redistribution function $r_i: \Theta_{-i} \rightarrow \mathbb{R}^{+}$ is a function returning the amount of monetary resources the mechanism redistributes to each player after it received the payments from the players. Thus, given an economic mechanism with payments $p_i(\theta)$, the monetary resources actually paid by player $i$ are $p_i (\theta) - r_i (\theta_{-i})$.\\
+
 \textbf{Exercise 21.0.2} (Cavallo’ redistribution). \textit{Provide the definition of Cavallo’s redistribution function.}\\
+
+Let $p_{i}^{V C G}(\theta)$ be the payment used in the VCG mechanism, Cavallo's redistribution $r_{i}(\theta)$ is defined as:
+$$
+r_{i}\left(\theta_{-i}\right)=\frac{1}{n} \min _{\bar{\theta}_{i} \in \Theta_{i}} \sum_{j \in N} p_{j}^{V C G}\left(\bar{\theta}_{i}, \theta_{-i}\right)=
+$$
+$$=\frac{1}{n} \min _{\bar{\theta}_{i} \in \Theta_{i}}\left\{\sum_{j \in N} \max _{k^{\prime} \in K_{-j}} \sum_{l \in N \backslash\{j\}} v_{l}\left(k^{\prime}, \theta_{l}\right)-(n-1) \sum_{j \in N} v_{j}\left(k\left(\bar{\theta}_{i}, \theta_{-i}\right), \theta_{j}\right)\right\}
+$$
+Basically, Cavallo's mechanism redistributes to each player $\frac{1}{n}$ of the total $\operatorname{VCG}$ payment that would result if minimizing over the space of types of the player (in the cases).\\
+The VCG mechanism with Cavallo's redistribution is a Groves mechanism in which $h_{i}\left(\theta_{-i}\right)$ is defined as:
+$$
+h_{i}\left(\theta_{-i}\right)=\max _{k^{\prime} \in K_{i}} \sum_{j \in N \backslash\{i\}} v_{j}\left(k^{\prime}, \theta_{j}\right)-r_{i}\left(\theta_{-i}\right)
+$$
 
 \textbf{Exercise 21.0.3} (VCG with Cavallo’ redistribution properties). \textit{Describe and prove the properties of the VCG mechanism with the Cavallo’s redistribution function.}\\
 
+When the VCG is individually rational and weak budget balanced, the VCG mechanism with Cavallo's redistribution satisfies the following properties: ex post individual rationality, weak budget balance, allocative efficiency, DSIC. Furthermore, among all the mechanisms satisfying the four properties is the one such that no mechanism yields greater payoffs to the players.\\
+\textit{Proof.} We consider each property singularly.\\
+\textit{Individual rationality.} Initially, we observe that, if the VCG is weakly budget balanced, then $\sum_{j \in N} p_{j}^{V C G}(\theta) \geqslant 0$ for every $\theta \in \bar{\Theta}$ and therefore, a fortiori, $\min _{\bar{\theta}_{i} \in \Theta_{i}} \sum_{j \in N} p_{j}^{V C G}\left(\bar{\theta}_{i}, \theta_{-i}\right) \geqslant 0$ for every $\theta \in \bar{\Theta} .$ This means that $r_{i}\left(\theta_{-i}\right) \geqslant 0$
+for every $\theta_{-i} \in \bar{\Theta}_{-i} .$ Thus, the total payments of the VCG mechanism with Cavallo's redistribution are smaller than the payments of the VCG mechanism. Therefore, if the VCG mechanism is individually rational, the same holds a fortiori for the VCG mechanism with Cavallo's redistribution.\\
+\textit{Weak budget balance}. By definition, we have $r_{i}\left(\theta_{-i}\right)=\frac{1}{n} \min _{\bar{\theta}_{i} \in \Theta_{i}} \sum_{j \in N} p_{j}^{V C G}\left(\bar{\theta}_{i}, \theta_{-i}\right) \leqslant \frac{1}{n} \sum_{j \in N} p_{j}^{V C G}(\theta) .$ Therefore,
+it holds $\sum_{i \in N} r_{i}\left(\theta_{-i}\right) \leqslant \sum_{i \in N} \frac{1}{n} \sum_{j \in N} p_{j}^{V C G}(\theta)=\sum_{j \in N} p_{j}^{V C G}(\theta)$.\\
+\textit{Allocative efficiency.} It easily follows from the fact that the VCG mechanism with Cavallo's redistribution is a Groves mechanism.\\
+\textit{DSIC.} It easily follows from the fact that the VCG mechanism with Cavallo's redistribution is a Groves mechanism.\\
+
 \textbf{Exercise 21.0.4} (Application of Cavallo’ redistribution). \textit{Given a setting and a mechanism, apply the Cavallo’s redistribution function.}\\
 
+TODO\\
+
 \textbf{Exercise 21.0.5} (Strict-budget balanced mechanisms). \textit{Provide a mechanism that is individually rational,weakly budget balanced, DSIC, and strict budget balanced. Can Groves mechanisms be strict budget balanced?}\\
+
+TODO\\
 
 \section{EC 4.22}
 
 \textbf{Exercise 22.0.1} (Single-parameter linear environment). \textit{Provide the definition of single-parameter linear environment.}\\
 
+A single-parameter linear environment (a special subclass of quasi-linear environment) is characterized by:
+\begin{itemize}
+\item outcomes space: $X = \{ (k, p_1, \ldots, p_n): k \in K, p_i \in \mathbb{R}\}$;
+\item utility functions: $U_{i}\left(x, \theta_{i}\right)=U_{i}\left(\left(k, p_{1}, \ldots, p_{n}\right), \theta_{i}\right)=\theta_{i} \cdot \rho_{i}(k)-p_{i}, \text { where } \rho_{i}: K \rightarrow \mathbb{R} \text { and } \Theta_{i} \subset \mathbb{R}$
+\end{itemize}
+The set $K$ represents the set of allocations. The utility of each player $i$ is factorized w.r.t. type $\theta_i$ and a function $\rho_i(k)$ defined only on the allocation $k$ (and not on the type.) In principle, function $\rho_i$ can be any. (The name "linear" is due to the form of the utility function, that is linear in the type and in the payment.)
+
 \textbf{Exercise 22.0.2} (Weak monotonicity). \textit{Provide the definition of weak monotonicity for single-parameter linear environment.}\\
+
+An allocation function $k(\theta)$ is weakly monotonic if:
+$$
+\theta_{i}>\theta_{i}^{\prime} \Rightarrow \rho_{i}\left(k\left(\theta_{i}, \theta_{-i}\right)\right) \geqslant \rho_{i}\left(k\left(\theta_{i}^{\prime}, \theta_{-i}\right)\right) \quad \forall i \in N, \theta_{i}, \theta_{i}^{\prime} \in \Theta_{i}, \theta_{-i} \in \Theta_{-i}
+$$
 
 \textbf{Exercise 22.0.3} (Myerson mechanisms). \textit{Provide the definition of Myerson mechnaisms for single-parameter linear environment.}\\
 
+A direct revelation economic mechanism $\left(\Theta_{1}, \ldots, \Theta_{n}, X, f\right)$ in which $f(\theta)=\left(k(\theta), p_{1}(\theta), \ldots, p_{n}(\theta)\right)$ is a Myerson mechanism if:
+- $k(\theta)$ is an arbitrary weakly monotone allocation function,
+$$
+\bullet p_{i}(\theta)=\theta_{i} \cdot \rho_{i}(k(\theta))-\int_{0}^{\theta_{i}} \rho_{i}\left(k\left(\theta_{i}^{\prime}, \theta_{-i}\right)\right) \cdot d \theta_{i}^{\prime}+h_{i}\left(\theta_{-i}\right)
+$$
+where $h_{i}: \Theta_{-i} \rightarrow \mathbb{R}$ is an arbitrary function on $\theta_{-i}$.\\
+
 \textbf{Exercise 22.0.4} (Myerson theorem). \textit{Provide the statement of the Myerson theorem for dominant-strategy incentive compatibility in single-parameter linear environment and prove it.}\\
+
+Any social choice function $f$ such that $\left(\Theta_{1}, \ldots, \Theta_{n}, X, f\right)$ is a Myerson mechanism is DSIC.
 
 \section{EC 4.23}
 
 \textbf{Exercise 23.0.1} (Knapsack auction). \textit{Provide the definition of knapsack auction.}\\
 
+A knapsack problem, say KNAPSACK, is defined as:
+\begin{itemize}
+\item $I=\{1, \ldots, n\}$ is a set of items;
+\item $\boldsymbol{S}=\left\{s_{1}, \ldots, s_{n}\right\}$ where $s_{i} \in \mathbb{N}^{+}$ is the size of item $i$
+\item $W=\left\{w_{1}, \ldots, w_{n}\right\}$ where $w_{i} \in \mathbb{N}^{+}$ is the value of item $i$
+\item $C$ e $\mathbb{N}^{+}$ is the capacity of the knapsack. 
+\end{itemize}
+The goal of the knapsack problem is:
+$$
+\begin{aligned}
+\arg \max _{I^{\prime} \subseteq I} & \sum_{i \in I} w_{i} \\
+\text { s.t. } & \sum_{i \in I} s_{i} \leqslant C
+\end{aligned}
+$$
+
 \textbf{Exercise 23.0.2} (Knapsack auction approximation algorithm). \textit{Describe a monotone algorithm to approximate the optimal allocation of the knapsack auction with a ratio of $\frac{1}{2}$ and prove the theoretical bound on the approximation ratio.}\\
 
+The algorithm, say ApxKnapsack, develops in the following steps:
+\begin{enumerate}
+\item sort all the items in decreasing order in $\frac{w_{i}}{s_{i}}$ and then relabel the items such that item 1 is the first in the order and item $n$ is the last one;
+\item repeatedly add the items to $I^{\prime}$ according to the above order while the capacity constraint is not violated and call $\left|I^{\prime}\right|=n^{\prime}$ (this means that $\sum_{i \leqslant n^{\prime}} s_{i} \leqslant C$ and, if $\left.n^{\prime}<n, C<\sum_{i \leqslant n^{\prime}+1} s_{i}\right)$
+\item return $\max \left\{\sum_{i \leqslant m^{\prime}} w_{i}, w_{n^{\prime}+1}\right\}$
+\end{enumerate}
+The complexity of the algorithm is $O\left(n \log _{2}(n)\right)$.\\
+
 \textbf{Exercise 23.0.3} (Application of Knapsack auction). \textit{Given a knapsack auction setting, find the optimal allocation returned by the VCG mechanism and find the allocation returned by the $\frac{1}{2}$ approximation monotone algorithm.}\\
+
+TODO\\
 
 \section{EC 4.24}
 
 \textbf{Exercise 24.0.1} (Combinatorial auction). \textit{Provide the definition of combinatorial auction.}\\
 
+A combinatorial auction is defined as:
+\begin{itemize}
+\item $N=\{1, \ldots, n\}$ is the set of players;
+\item $I=\{1, \ldots, m\}$ is the set of items;
+\item $ S=\wp(I) \backslash \varnothing$ is the set of possible bundles of items;
+\item $\theta_{i}=\left\{\theta_{i, s}: \theta_{i, s} \in \mathbb{R}^{+}, s \in S\right\}$ is the type of player $i,$ composed of a parameter for every possible bundle
+$k=\{(s, i): s \in S, i \in N,$ and for every s there is at most an $i\}$ is an allocation specifying the set of allocated bundles and for each bundle the player who won it, while $K$ is the set of allocations;
+\item $v_{i}\left(k, \theta_{i}\right)=\sum_{s:(s, i) \in k} \theta_{i, s}$ is the valuation function of player $i$
+\end{itemize}
+The problem of finding the optimal allocation is called $\mathrm{COMB}-\mathrm{AUCTION}$.\\
+
 \textbf{Exercise 24.0.2} (Combinatorial auction approximation algorithm). \textit{Describe a monotone algorithm to approximate the optimal allocation of a combinatorial auction.}\\
 
+The algorithm, say ApxCombAuction, develops in the following steps:
+\begin{enumerate}
+\item sort all the players on the basis of their unique non-zero $\theta_{i,s}$ in decreasing order in $\frac{\theta_{i,s}}{\sqrt{|s|}}$;
+\item scan all the players according to the above order and for each player $i$ allocate the bundles such that $\theta_{i,s} >0$ to player $i$ if $s$ does not contain any item appearing in some bundle previously allocated;
+\item return the allocation found.
+\end{enumerate}
+The complexity of the algorithm is $O(n \log_2 (n))$.\\
+
 \textbf{Exercise 24.0.3} (Application of combinatorial auction). \textit{Given a setting of combinatorial auction, find the allocation returned by the $\frac{1}{\sqrt{|I|}}$-approximation monotone algorithm, where is the set of items. Additional question: find the Myerson payments when the approximation algorithm is used.}
+
+TODO\\
 
 \section{EC 4.25}
 
