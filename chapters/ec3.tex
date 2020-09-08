@@ -98,8 +98,64 @@ The Leader–Follower equilibrium can be found by solving the following mathemat
 whose nature is Multi–Linear Program (Multi–LP).\\
 
 \textbf{Exercise 15.0.5} (Finding a Leader-Follower equilibrium). \textit{Given a 2-player normal-form game, find a Leader-Follower equilibrium by means of AMPL + GUROBI.}\\
+\begin{verbatim}
+-----------------------------file.mod-----------------------------
 
-\textcolor{red}{TODO}\\
+set A;
+
+param Ul{A, A};
+param Uf{A, A};
+param AF;
+
+var sl{A} >= 0;
+
+maximize objective: sum{a in A} Ul[al, AF] * sl[al];
+
+subject to constraint1{af in A}: sum{al in A} Uf[al, AF] * sl[al] 
+                    - sum{al in A} Uf[al, af] * sl[al]>= 0;
+subject to constraint2: sum{al in A}: sl[al] = 1;
+
+-----------------------------file.dat-----------------------------
+
+set A := 1 2 3 4;
+
+param Ul: 1 2 3 4 :=
+	1   1 0.5 0.5 0.5
+	2 0.5   1 0.5 0.5
+	3   1 0.5   1 0.5
+	4 0.5 0.5 0.5   1;
+
+param Uf: 1 2 3 4 :=
+	1   1 0.4 0.3 0.3
+	2 0.6   0 0.4 0.3
+	3 0.7 0.5   0 0.4
+	4 0.7 0.7 0.6   0;
+	
+-----------------------------file.run-----------------------------
+
+model file.mod;
+data file.dat;
+
+option solver gurobi;
+
+let AF := 1;
+solve;
+display AF, objective;
+
+let AF := 2;
+solve;
+display AF, objective;
+
+let AF := 3;
+solve;
+display AF, objective;
+
+let AF := 4;
+solve;
+display AF, objective;
+
+------------------------------------------------------------------
+\end{verbatim}
 
 \textbf{Exercise 15.0.6} (Leader-Follower equilibrium complexity). \textit{What is the computational complexity of finding a Leader-Follower equilibrium?}\\
 
@@ -121,11 +177,90 @@ The Leader-Follower equilibrium,when the follower can be of different types, can
 whose nature is Multi–Linear Program (Multi–LP).\\
 
 \textbf{Exercise 15.0.9} (Finding a Leader-Follower equilibrium). \textit{Given a 2-player normal-form game in which the follower can be of multiple types, find a Leader-Follower equilibrium by means of AMPL + GUROBI.}\\
+\begin{verbatim}
+-----------------------------file.mod-----------------------------
+
+set A;
+set T;
+
+param Ul{A, A};
+param Uf{A, A, T};
+param P{T};
+param AF{T};
+
+var sl{A} >= 0;
+
+maximize objective: sum{t in T, a in A} P[t] * Ul[al, AF[t], t] * sl[al];
+
+subject to constraint1{af in A, t in T}: sum{al in A} Uf[al, AF[t], t] * sl[al] 
+                    - sum{al in A} Uf[al, af, t] * sl[al]>= 0;
+subject to constraint2: sum{al in A} sl[al] = 1;
+
+-----------------------------file.dat-----------------------------
+
+set A := 1 2 3 4;
+set T := type1 type2;
+
+param P :=
+    type1 0.5
+    type2 0.5;
+
+param Ul: 1 2 3 4 :=
+	1   1 0.5 0.5 0.5
+	2 0.5   1 0.5 0.5
+	3   1 0.5   1 0.5
+	4 0.5 0.5 0.5   1;
+
+param Uf:
+    [*, *, type1]: 1 2 3 4 :=
+	    1   0 0.4 0.3 0.3
+	    2 0.6   0 0.4 0.3
+	    3 0.7 0.6   0 0.4
+	    4 0.7 0.7 0.6   0;
+    [*, *, type2]: 1 2 3 4 :=
+	    1   0 0.7 0.6 0.6
+	    2 0.4   0 0.7 0.6
+	    3 0.3 0.3   0 0.7
+	    4 0.3 0.7 0.4   0;
+	
+-----------------------------file.run-----------------------------
+
+model file.mod;
+data file.dat;
+
+option solver gurobi;
+
+let AF['type1'] := 1;
+let AF['type2'] := 1;
+solve;
+display AF, objective, sl;
+
+let AF['type1'] := 1;
+let AF['type2'] := 2;
+solve;
+display AF, objective, sl;
+
+let AF['type1'] := 1;
+let AF['type2'] := 3;
+solve;
+display AF, objective, sl;
+
+let AF['type1'] := 1;
+let AF['type2'] := 4;
+solve;
+display AF, objective, sl;
+
+...
+
+------------------------------------------------------------------
+\end{verbatim}
 
 \textbf{Exercise 15.0.10} (Leader-Follower equilibrium complexity). \textit{What is the computational complexity of finding a Leader-Follower equilibrium when the follower can be of multiple types?}\\
 
+
 (Multi-LP complexity).The Multi-LP has exponential complexity, enumerating an exponential number of LPs $O(m^k)$, each with a linear number of constraints $O(m \cdot k)$.\\
 (Bayesian Leader-Follower complexity with single-type leader). n nThe problem of finding a Leader-Follower equilibrium when the follower can be of different types is in \textsf{FNP}-hard.
+
 
 \section{EC 3.16}
 

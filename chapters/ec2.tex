@@ -80,8 +80,49 @@ The Minmax strategy player $i$ against player $-i$ and the corresponding value o
 \centering
 \includegraphics[width=\textwidth]{images/img_2_7_04.png}
 \end{figure}
-\textbf{Exercise 7.0.5} (Solving a game). \textit{Given a normal–form game with 2 players, find a Maxmin strategy by means of AMPL + GUROBI.}\\\\
-\textcolor{red}{TODO}\\\\
+\textbf{Exercise 7.0.5} (Solving a game). \textit{Given a normal–form game with 2 players, find a Maxmin strategy by means of AMPL + GUROBI.}\\
+\begin{verbatim}
+-----------------------------file.mod-----------------------------
+
+set I;
+set J;
+
+param U{I, J};
+
+var s1{I} >= 0;
+var s2{J} >= 0;
+
+var v;
+
+maximize objective: v;
+
+subject to constraint1{j in J}: v - sum{i in I} U[i,j] * s1[i] <= 0;
+subject to constraint2{i in I}: s1[i] = 1;
+
+-----------------------------file.dat-----------------------------
+
+set I := a b c;
+set J := d e f;
+
+param U: d e f :=
+	a 0 -1 1
+	b 1 0 -1
+	c -1 1 0;
+	
+-----------------------------file.run-----------------------------
+
+model file.mod;
+data file.dat;
+
+option solver gurobi;
+
+solve;
+
+display v;
+display s1;
+
+------------------------------------------------------------------
+\end{verbatim}
 
 \section{EC 2.8}
 
@@ -106,8 +147,86 @@ The Minmax strategy of player i against player $-i$ in sequence form can be foun
 & r_i (q_i) & \geqslant & \quad 0 & \forall q_i \in Q_i
 \end{align*}
 \noindent
-\textbf{Exercise 8.0.4} (Solving a game). \textit{Given a sequence–form game with 2 players, find a Maxmin strategy by means of AMPL + GUROBI.}\\\\
-\textcolor{red}{TODO}\\\\
+\textbf{Exercise 8.0.4} (Solving a game). \textit{Given a sequence–form game with 2 players, find a Maxmin strategy by means of AMPL + GUROBI.}\\
+\begin{verbatim}
+-----------------------------file.mod-----------------------------
+
+set Q1;
+set Q2;
+set H1;
+set H2;
+
+param F1{H1, Q1};
+param f1{H1};
+param U1{Q1, Q2};
+param F2{H2, Q2};
+param f2{H2};
+param U2{Q1, Q2};
+
+var r1{Q1} >= 0;
+var r2{Q2} >= 0;
+
+var v2{H2};
+
+
+maximize objective: sum{h in H2} f2[h] * v2[h];
+
+subject to constraint1{q2 in Q2}: sum{h in H2} F2[h,q2] * v2[h]
+                    - sum{q1 in Q1} U1[q1, q2] * r1[q1] <= 0;
+subject to constraint2{h in H1}: sum{q in Q1} F1[h, q] * r1[q] == f1[h];
+
+-----------------------------file.dat-----------------------------
+
+set Q1 := q0 L1 R1 R1L2 R1R2 R1L3 R1;
+set Q2 := q0 l1 r1;
+set H1 := empty ONE TWO THREE;
+set H2 := 0 one;
+
+param F1: q0 L1 R1 R1L2 R1R2 R1L3 R1 :=
+	empty 1  0  0 0 0 0 0
+	ONE	 -1  1  1 0 0 0 0
+	TWO   0  0 -1 0 0 1 1
+	THREE 0  0 -1 0 0 1 1;
+	
+param f1 :=
+	empty 1
+	ONE   0
+	TWO   0
+	THREE 0;
+	
+param U1 q0 l1 r1 :=
+	q0   0 0 0
+	L1   4 0 0
+	R1   0 0 0
+	R1L2 0 6 0
+	R1R2 0 9 0
+	R1L3 0 0 2
+	R1   0 0 4;
+
+param F2: q0 11 r1 :=
+	empty 1  0  0
+	one	 -1  1  1;
+	
+param f2 :=
+	empty 1
+	one   0;
+	
+-----------------------------file.run-----------------------------
+
+model file.mod;
+data file.dat;
+
+option solver gurobi;
+
+solve;
+
+display objective;
+display constraint1;
+display v2;
+display r1;
+
+------------------------------------------------------------------
+\end{verbatim}
 
 \section{EC 2.9}
 
@@ -141,8 +260,72 @@ The Maxmin strategy and the corresponding Maxmin value of $n$ min-players agains
 \includegraphics[width=\textwidth]{images/img_2_9_03.png}
 \end{figure}
 \noindent
-\textbf{Exercise 9.0.4} (Solving a game). \textit{Given a normal–form game with n players among which $ n-1 $ are maximizers and $ 1 $ is a minimizer, find a Maxmin strategy by means of AMPL + BARON.}\\\\
-\textbf{Exercise 9.0.5} (L’ho aggiunta io). \textit{Provide the definition and the mathematical programming formulation of the Maxmin strategy when there is a single max player and multiple min players.}\\\\
+\textbf{Exercise 9.0.4} (Solving a game). \textit{Given a normal–form game with n players among which $ n-1 $ are maximizers and $ 1 $ is a minimizer, find a Maxmin strategy by means of AMPL + BARON.}\\
+\begin{verbatim}
+-----------------------------file.mod-----------------------------
+
+set I;
+
+param U{I, I, I};
+
+var s1{I} >= 0;
+var s2{J} >= 0;
+
+var v;
+
+maximize objective: v;
+
+subject to constraint1{i in I}: v - sum{j in I, k in I} U[i,j,k
+                        * s1[j] * s2[k] <= 0;
+subject to constraint2: sum{j in I} s1[j] == 1;
+subject to constraint3: sum{k in I} s2[k] == 1;
+
+-----------------------------file.dat-----------------------------
+
+set I := t1 t2 t3 t4;
+
+param U :=
+    [t1, *, *]: t1 t2 t3 t4 :=
+	        t1   1   1   1   1
+	        t2   1 0.5 0.5 0.5
+	        t3   1 0.5 0.5 0.5
+	        t4   1 0.5 0.5 0.5
+
+    [t2, *, *]: t1 t2 t3 t4 :=
+	        t1 0.5   1 0.5 0.5
+	        t2 0.5   1   1   1
+	        t3 0.5   1 0.5 0.5
+	        t4 0.5   1 0.5 0.5
+	        
+    [t3, *, *]: t1 t2 t3 t4 :=
+	        t1 0.5 0.5   1 0.5
+	        t2 0.5 0.5   1 0.5
+	        t3   1   1   1   1
+	        t4 0.5 0.5   1 0.5
+	        
+    [t4, *, *]: t1 t2 t3 t4 :=
+	        t1 0.5 0.5 0.5   1
+	        t2 0.5 0.5 0.5   1
+	        t3 0.5 0.5 0.5   1
+	        t4   1   1   1   1
+	
+-----------------------------file.run-----------------------------
+
+model file.mod;
+data file.dat;
+
+option solver baron;
+
+solve;
+
+display v;
+display s1;
+display s2;
+
+------------------------------------------------------------------
+\end{verbatim}
+
+\textbf{Exercise 9.0.5} (Single max player, multiple max players). \textit{Provide the definition and the mathematical programming formulation of the Maxmin strategy when there is a single max player and multiple min players.}\\\\
 (Maxmin optimization problem (with correlated min players)). The problem of finding a Maxmin strategy of player i against $n-1$ players, playing in correlated fashion, is formulated as:
 \begin{figure}[H]
 \centering
@@ -278,8 +461,143 @@ whose nature is Mixed-Integer Linear (MILP); the constant $M_i$ can be set as $M
 $v_{i}=\sum_{a_{-i} \in A_{-i}}\left[U_{i}\left(a_{i}, a_{-i}\right) \sigma_{-i}\left(a_{-i}\right)\right]$. If instead $b_{i}\left(a_{i}\right)=0$, the expected utility given by action $a_{i}$ may be strictly
 smaller than $v_{i},$ since we that $v_{i}-\sum_{a_{-i} \in A_{-i}}\left[U_{i}\left(a_{i}, a_{-i}\right) \sigma_{-i}\left(a_{-i}\right)\right] \leqslant M_{i}$ that is always true by construction of
 $M_{i} .$ In other words, the adoption of a binary $b_{i}\left(a_{i}\right)$ allows one to enable or disable a set of constraints.\\\\
-\textbf{Exercise 12.0.4} (Solving a normal–form game). \textit{Given a normal–form game with 2 players, find a Nash equilibrium by means of AMPL + GUROBI.}\\\\
-\textcolor{red}{TODO}\\\\
+\textbf{Exercise 12.0.4} (Solving a normal–form game). \textit{Given a normal–form game with 2 players, find a Nash equilibrium by means of AMPL + GUROBI.}\\
+\begin{verbatim}
+-----------------------------file.mod-----------------------------
+
+set P;
+set I;
+
+param U1{I, I};
+param U2{I, I};
+param M{P};
+
+var s1{I} >= 0;
+var s2{I} >= 0;
+var b1{I} binary;
+var b2{I} binary;
+var v{P};
+
+maximize objective: v[1] + v[2];
+
+subject to constraint1_1{i in I}: s1[i] - b1[i] <= 0;
+subject to constraint1_2{i in I}: s2[i] - b2[i] <= 0;
+
+subject to constraint2_1{i in I}: v[1] - sum{j in I} (U1[i, j] * s2[j])
+                    - M[1] * (1 - b1[i]) <= 0;
+subject to constraint2_2{j in I}: v[2] - sum{i in I} (U2[i, j] * s1[i])
+                    - M[2] * (1 - b2[j]) <= 0;
+                    
+subject to contraint3_1{i in I}: v[1] - sum{j in I} (U1[i, j] * s2[j]) >= 0;
+subject to contraint3_2{i in I}: v[2] - sum{j in I} (U2[i, j] * s1[i]) >= 0;
+
+subject to constraint4_1: sum{i in I} s1[i] == 1;
+subject to constraint4_2: sum{j in I} s2[j] == 1;
+
+-----------------------------file.dat-----------------------------
+
+set P := 1 2;
+set I := a1 a2 a3;
+
+param U1: a1 a2 a3 :=
+    a1 2 1 0
+    a2 1 2 0
+    a3 0 0 0;
+
+param U2: a1 a2 a3 :=
+    a1 1 2 0
+    a2 2 1 0
+    a3 0 0 0;
+    
+param M :=
+    1 2
+    2 2;
+
+-----------------------------file.run-----------------------------
+
+model file.mod;
+data file.dat;
+
+option solver gurobi;
+
+solve;
+
+display v;
+display s1;
+display s2;
+
+------------------------------------------------------------------
+\end{verbatim}
+
+\textbf{Exercise 12.0.5} (Epsilon-Nash in a normal–form game). \textit{Given a normal–form game with 2 players, find an $\varepsilon$-Nash equilibrium by means of AMPL + GUROBI.}\\
+\begin{verbatim}
+-----------------------------file.mod-----------------------------
+
+set P;
+set I;
+
+param U1{I, I};
+param U2{I, I};
+param M{P};
+
+var s1{I} >= 0;
+var s2{I} >= 0;
+var b1{I} binary;
+var b2{I} binary;
+var v{P};
+var eps >= 0;
+
+minimize objective: eps;
+
+subject to constraint1_1{i in I}: s1[i] - b1[i] <= 0;
+subject to constraint1_2{i in I}: s2[i] - b2[i] <= 0;
+
+subject to constraint2_1{i in I}: v[1] - sum{j in I} (U1[i, j] * s2[j])
+                    - M[1] * (1 - b1[1]) - eps <= 0;
+subject to constraint2_2{j in I}: v[2] - sum{i in I} (U1[i, j] * s1[i])
+                    - M[2] * (1 - b2[j]) - eps <= 0;
+                    
+subject to contraint3_1{i in I}: v[1] - sum{j in I} (U1[i, j] * s2[j]) >= 0;
+subject to contraint3_2{i in I}: v[2] - sum{i in I} (U2[i, j] * s1[i]) >= 0;
+
+subject to constraint4_1{i in I}: s1[i] == 1;
+subject to constraint4_2{j in I}: s2[j] == 1;
+
+-----------------------------file.dat-----------------------------
+
+set P := 1 2;
+set I := a1 a2 a3;
+
+param U1: a1 a2 a3 :=
+    a1 2 1 0
+    a2 1 2 0
+    a3 0 0 0;
+
+param U2: a1 a2 a3 :=
+    a1 1 2 0
+    a2 2 1 0
+    a3 0 0 0;
+    
+param M :=
+    1 2
+    2 2;
+
+-----------------------------file.run-----------------------------
+
+model file.mod;
+data file.dat;
+
+option solver gurobi;
+
+solve;
+
+display v;
+display eps;
+display s1;
+display s2;
+
+------------------------------------------------------------------
+\end{verbatim}
 
 \section{EC 2.13}
 
